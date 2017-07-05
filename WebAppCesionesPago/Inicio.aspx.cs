@@ -31,8 +31,6 @@ namespace WebAppCesionesPago
                 ddlTipPago.DataBind();
                 ddlTipPago.Items.Insert(0, new ListItem("Selecciona Tipo Pago", "NA"));
 
-                gvCP.DataSource = logicaNegocio.consCtmov("001", "BTCEPG", null, 64);
-                gvCP.DataBind();
                 if (variables.Num_Fol == 0 || string.IsNullOrEmpty(variables.TipCesionPago) == true || string.IsNullOrEmpty(variables.TipPago) == true)
                 {
                     txtNumFol.Text = logicaNegocio.ultFolio("001", "BTCEPG").ToString();
