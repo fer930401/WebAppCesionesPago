@@ -1,6 +1,32 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Cesiones.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="WebAppCesionesPago._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#<%=gvCP.ClientID%> input[name*='chkAutoriza']").on("click", function () {
+                
+                $( "#dialog-confirm" ).dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Delete all items": function() {
+                            $( this ).dialog( "close" );
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                });
+            });
+    </script>
+    <div id="dialog-confirm" title="Empty the recycle bin?">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
     <div class="container">
         <div class="well">
             <div class="form-inline">
@@ -61,30 +87,21 @@
                             <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkAutoriza" runat="server" 
-                                        Checked='<%# Convert.ToBoolean(Convert.ToInt32(Eval("num_folad").ToString())) %>' OnCheckedChanged="chkAutoriza_CheckedChanged"
+                                        Checked='<%# Convert.ToBoolean(Convert.ToInt32(Eval("num_folad").ToString())) %>' 
+                                        onclick="if (!confirm('Esta seguro de que quiere autorizar el pago??')) return false;" OnCheckedChanged="chkAutoriza_CheckedChanged" AutoPostBack="true"
                                         Text="Autorizar"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Rechazar:" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkRechaza" runat="server"  OnCheckedChanged="chkRechaza_CheckedChanged"
+                                    <asp:CheckBox ID="chkRechaza" runat="server" 
+                                        Checked='<%# Convert.ToBoolean(Convert.ToInt32(Eval("dato4").ToString())) %>'
+                                        onclick="if (!confirm('Esta seguro de que quiere rechazar el pago??')) return false;" OnCheckedChanged="chkRechaza_CheckedChanged" AutoPostBack="true"
                                         Text="Rechazar"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                 </asp:GridView>
-                <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
-                <script type="text/javascript">
-                    $("#chkAutoriza").change(function (evt) {
-                        var attr = $(evt.target).attr("checked")
-                        if (typeof attr !== 'undefined' && attr !== false) {
-                            alert("Checked");
-                        }
-                        else {
-                            alert("Not Checked");
-                        }
-                    });
-                </script>
             </div>
         </div>
     </div>
