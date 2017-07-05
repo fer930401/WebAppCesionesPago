@@ -18,13 +18,27 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-4">
-                                <strong><asp:Label ID="lbl1" runat="server" Text="Tipo Cesión:"></asp:Label></strong>
+                            <div class="col-md-3">
+                                <strong><asp:Label ID="lbl1" runat="server" Text="No. Folio:"></asp:Label></strong>
+                                <asp:TextBox ID="txtNumFol" runat="server" type="number" CssClass="form-control" min="1" ReadOnly="true" required></asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <strong><asp:Label ID="lbl2" runat="server" Text="Fecha:"></asp:Label></strong>
+                                <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" ReadOnly="true" ></asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <strong><asp:Label ID="lbl3" runat="server" Text="Tipo Cesión:"></asp:Label></strong>
                                 <asp:DropDownList ID="ddlTipCesion" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                            <div class="col-md-4">
-                                <strong><asp:Label ID="lbl2" runat="server" Text="Tipo Pago:"></asp:Label></strong>
+                            <div class="col-md-3">
+                                <strong><asp:Label ID="lbl4" runat="server" Text="Tipo Pago:"></asp:Label></strong>
                                 <asp:DropDownList ID="ddlTipPago" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <br />
+                                <asp:Button ID="btnGenerar" runat="server" Text="Generar" CssClass="btn btn-success" OnClick="btnGenerar_Click"/>
                             </div>
                         </div>
                         <br />
@@ -34,7 +48,44 @@
             </div>
         </div>
         <div class="row">
-            <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+            <div class="col-md-12">
+                <asp:GridView ID="gvCP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" 
+                    HeaderStyle-ForeColor="White" EmptyDataText="No hay resultados">
+                    <HeaderStyle Font-Bold="True" />
+                        <Columns>
+                            <asp:BoundField DataField="num_reng" HeaderText="No.:" />
+                            <asp:BoundField DataField="importe" HeaderText="Importe:" />
+                            <asp:BoundField DataField="docp_nom" HeaderText="Documento Referenciado:" />
+                            <asp:BoundField DataField="num_folp" HeaderText="Folio:" />
+                            <asp:BoundField DataField="nom_benefi" HeaderText="Proveedor:" />
+                            <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkAutoriza" runat="server" 
+                                        Checked='<%# Convert.ToBoolean(Convert.ToInt32(Eval("num_folad").ToString())) %>' OnCheckedChanged="chkAutoriza_CheckedChanged"
+                                        Text="Autorizar"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Rechazar:" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkRechaza" runat="server"  OnCheckedChanged="chkRechaza_CheckedChanged"
+                                        Text="Rechazar"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                </asp:GridView>
+                <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+                <script type="text/javascript">
+                    $("#chkAutoriza").change(function (evt) {
+                        var attr = $(evt.target).attr("checked")
+                        if (typeof attr !== 'undefined' && attr !== false) {
+                            alert("Checked");
+                        }
+                        else {
+                            alert("Not Checked");
+                        }
+                    });
+                </script>
+            </div>
         </div>
     </div>
 </asp:Content>

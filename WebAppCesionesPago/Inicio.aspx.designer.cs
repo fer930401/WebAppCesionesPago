@@ -22,13 +22,13 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.Label lbl1;
         
         /// <summary>
-        /// ddlTipCesion control.
+        /// txtNumFol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipCesion;
+        protected global::System.Web.UI.WebControls.TextBox txtNumFol;
         
         /// <summary>
         /// lbl2 control.
@@ -40,6 +40,42 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.Label lbl2;
         
         /// <summary>
+        /// txtFecha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFecha;
+        
+        /// <summary>
+        /// lbl3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl3;
+        
+        /// <summary>
+        /// ddlTipCesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipCesion;
+        
+        /// <summary>
+        /// lbl4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl4;
+        
+        /// <summary>
         /// ddlTipPago control.
         /// </summary>
         /// <remarks>
@@ -49,12 +85,21 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipPago;
         
         /// <summary>
-        /// GridView1 control.
+        /// btnGenerar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.Button btnGenerar;
+        
+        /// <summary>
+        /// gvCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvCP;
     }
 }

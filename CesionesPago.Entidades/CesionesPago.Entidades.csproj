@@ -62,6 +62,15 @@
     <Compile Include="qcomcve1_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_lisdetctmov7_Result.cs">
+      <DependentUpon>CesionesPago.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_WebAppInsertaCtmov_Result.cs">
+      <DependentUpon>CesionesPago.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xufolios.cs">
+      <DependentUpon>CesionesPago.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CesionesPago.Context.tt">

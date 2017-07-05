@@ -27,6 +27,7 @@ namespace CesionesPago.Entidades
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<xufolios> xufolios { get; set; }
     
         public virtual ObjectResult<qcomcve1_Result> qcomcve1(string tipo)
         {
@@ -35,6 +36,56 @@ namespace CesionesPago.Entidades
                 new ObjectParameter("tipo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<qcomcve1_Result>("qcomcve1", tipoParameter);
+        }
+    
+        public virtual ObjectResult<sp_lisdetctmov7_Result> sp_lisdetctmov7(string ef_cve, string tipo_doc, string tipo_docp, Nullable<int> num_fol)
+        {
+            var ef_cveParameter = ef_cve != null ?
+                new ObjectParameter("ef_cve", ef_cve) :
+                new ObjectParameter("ef_cve", typeof(string));
+    
+            var tipo_docParameter = tipo_doc != null ?
+                new ObjectParameter("tipo_doc", tipo_doc) :
+                new ObjectParameter("tipo_doc", typeof(string));
+    
+            var tipo_docpParameter = tipo_docp != null ?
+                new ObjectParameter("tipo_docp", tipo_docp) :
+                new ObjectParameter("tipo_docp", typeof(string));
+    
+            var num_folParameter = num_fol.HasValue ?
+                new ObjectParameter("num_fol", num_fol) :
+                new ObjectParameter("num_fol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_lisdetctmov7_Result>("sp_lisdetctmov7", ef_cveParameter, tipo_docParameter, tipo_docpParameter, num_folParameter);
+        }
+    
+        public virtual ObjectResult<sp_WebAppInsertaCtmov_Result> sp_WebAppInsertaCtmov(Nullable<int> num_fol, Nullable<System.DateTime> fec_mov, Nullable<int> plazo_pp, string refer, string ef_cve, string tipdoc_cve)
+        {
+            var num_folParameter = num_fol.HasValue ?
+                new ObjectParameter("num_fol", num_fol) :
+                new ObjectParameter("num_fol", typeof(int));
+    
+            var fec_movParameter = fec_mov.HasValue ?
+                new ObjectParameter("fec_mov", fec_mov) :
+                new ObjectParameter("fec_mov", typeof(System.DateTime));
+    
+            var plazo_ppParameter = plazo_pp.HasValue ?
+                new ObjectParameter("plazo_pp", plazo_pp) :
+                new ObjectParameter("plazo_pp", typeof(int));
+    
+            var referParameter = refer != null ?
+                new ObjectParameter("refer", refer) :
+                new ObjectParameter("refer", typeof(string));
+    
+            var ef_cveParameter = ef_cve != null ?
+                new ObjectParameter("ef_cve", ef_cve) :
+                new ObjectParameter("ef_cve", typeof(string));
+    
+            var tipdoc_cveParameter = tipdoc_cve != null ?
+                new ObjectParameter("tipdoc_cve", tipdoc_cve) :
+                new ObjectParameter("tipdoc_cve", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_WebAppInsertaCtmov_Result>("sp_WebAppInsertaCtmov", num_folParameter, fec_movParameter, plazo_ppParameter, referParameter, ef_cveParameter, tipdoc_cveParameter);
         }
     }
 }
