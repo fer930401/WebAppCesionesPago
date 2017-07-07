@@ -59,7 +59,7 @@ namespace WebAppCesionesPago
 
         protected void chkRechaza_CheckedChanged(object sender, EventArgs e)
         {
-            int num_folEnc = Convert.ToInt32(txtNumFol.Text);
+            int num_folEnc = Convert.ToInt32(logicaNegocio.ultFolio("001", "BTCEPG").ToString());
             int tipo_cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
             string tipo_pago = ddlTipPago.Text;
             string user = Session["user_cve"].ToString();
@@ -70,6 +70,7 @@ namespace WebAppCesionesPago
             decimal importe = Convert.ToDecimal(row.Cells[5].Text);
             string tm = row.Cells[4].Text;
             string nombre = row.Cells[6].Text;
+
             CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result resultado = logicaNegocio.insertCtmov(num_folEnc, DateTime.Today, tipo_cesion, tipo_pago, "001", "BTCEPG", user, ef_cve, tipo_doc, num_fol, importe, tm, nombre, 2);
 
             if (resultado.error == 0)
@@ -85,7 +86,7 @@ namespace WebAppCesionesPago
 
         protected void chkAutoriza_CheckedChanged(object sender, EventArgs e)
         {
-            int num_folEnc = Convert.ToInt32(txtNumFol.Text);
+            int num_folEnc = Convert.ToInt32(logicaNegocio.ultFolio("001", "BTCEPG").ToString());
             int tipo_cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
             string tipo_pago = ddlTipPago.Text;
             string user = Session["user_cve"].ToString();

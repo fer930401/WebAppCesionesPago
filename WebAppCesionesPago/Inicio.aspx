@@ -14,13 +14,12 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h5>De los listados mostrados acontinuacion selecciona la opcion del renglon</h5>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3" style="display:none;">
                                 <strong><asp:Label ID="lbl1" runat="server" Text="No. Folio:"></asp:Label></strong>
-                                <asp:TextBox ID="txtNumFol" runat="server" type="number" CssClass="form-control" min="1" ReadOnly="true" required></asp:TextBox>
+                                <asp:TextBox ID="txtNumFol" runat="server" type="number" CssClass="form-control" min="1" ReadOnly="true" required="true"></asp:TextBox>
                             </div>
                             <div class="col-md-3">
                                 <strong><asp:Label ID="lbl2" runat="server" Text="Fecha:"></asp:Label></strong>
@@ -49,15 +48,16 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <div class="table-responsive">
                 <asp:GridView ID="gvCP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" 
-                    HeaderStyle-ForeColor="White" EmptyDataText="No hay resultados">
+                    HeaderStyle-ForeColor="White" EmptyDataText="No hay resultados" CssClass="table" Font-Size="Smaller">
                     <HeaderStyle Font-Bold="True" />
                         <Columns>
-                            <asp:BoundField DataField="ef_cve" HeaderText="Entidad Financiera" />
-                            <asp:BoundField DataField="tipo_doc" HeaderText="Documento" />
+                            <asp:BoundField DataField="ef_cve" HeaderText="Entidad Financiera" Visible="false"/>
+                            <asp:BoundField DataField="tipo_doc" HeaderText="Documento" Visible="false"/>
                             <asp:BoundField DataField="num_fol" HeaderText="Folio" />
-                            <asp:BoundField DataField="cc_tipo" HeaderText="Folio:" />
-                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" />
+                            <asp:BoundField DataField="cc_tipo" HeaderText="Documento" />
+                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" Visible="false" />
                             <asp:BoundField DataField="dato10" HeaderText="Importe" />
                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
                             <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
@@ -76,6 +76,7 @@
                             </asp:TemplateField>
                         </Columns>
                 </asp:GridView>
+                </div>
             </div>
         </div>
         <br />
