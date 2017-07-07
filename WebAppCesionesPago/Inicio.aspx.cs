@@ -15,78 +15,114 @@ namespace WebAppCesionesPago
         short? error = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["user_cve"]!=null)
             {
-                /* se llena el combo de Tipo de Cesión con el clave de la opcion 206 */
-                ddlTipCesion.DataSource = logicaNegocio.consTipCesion("194");
-                ddlTipCesion.DataTextField = "op_nom";
-                ddlTipCesion.DataValueField = "op_val";
-                ddlTipCesion.DataBind();
-                ddlTipCesion.Items.Insert(0, new ListItem("Selecciona Tipo Cesion", "NA"));
-
-                /* se llena el combo de Tipo Pago con el clave de la opcion 207 */
-                ddlTipPago.DataSource = logicaNegocio.consTipCesion("195");
-                ddlTipPago.DataTextField = "op_nom";
-                ddlTipPago.DataValueField = "op_val";
-                ddlTipPago.DataBind();
-                ddlTipPago.Items.Insert(0, new ListItem("Selecciona Tipo Pago", "NA"));
-
-                if (variables.Num_Fol == 0 || string.IsNullOrEmpty(variables.TipCesionPago) == true || string.IsNullOrEmpty(variables.TipPago) == true)
+                if (!IsPostBack)
                 {
-                    txtNumFol.Text = logicaNegocio.ultFolio("001", "BTCEPG").ToString();
-                    txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                }
-                else
-                {
-                    txtNumFol.Text = variables.Num_Fol.ToString();
-                    txtFecha.Text = variables.FecGenerado.ToString("dd/MM/yyyy");
-                    ddlTipCesion.SelectedValue = variables.TipCesionPago;
-                    ddlTipPago.SelectedValue = variables.TipPago;
+                    /* se llena el combo de Tipo de Cesión con el clave de la opcion 206 */
+                    ddlTipCesion.DataSource = logicaNegocio.consTipCesion("194");
+                    ddlTipCesion.DataTextField = "op_nom";
+                    ddlTipCesion.DataValueField = "op_val";
+                    ddlTipCesion.DataBind();
+                    ddlTipCesion.Items.Insert(0, new ListItem("Selecciona Tipo Cesion", "NA"));
 
-                    /* llena de la tabla con los detalles del ctdmov */
-                    gvCP.DataSource = logicaNegocio.consCtmov("001", "BTCEPG", null, variables.Num_Fol);
-                    gvCP.DataBind();
-                }
-            }
-        }
+                    /* se llena el combo de Tipo Pago con el clave de la opcion 207 */
+                    ddlTipPago.DataSource = logicaNegocio.consTipCesion("195");
+                    ddlTipPago.DataTextField = "op_nom";
+                    ddlTipPago.DataValueField = "op_val";
+                    ddlTipPago.DataBind();
+                    ddlTipPago.Items.Insert(0, new ListItem("Selecciona Tipo Pago", "NA"));
 
-        protected void btnGenerar_Click(object sender, EventArgs e)
-        {
-            if (ddlTipCesion.SelectedValue.Equals("NA") == false || ddlTipPago.SelectedValue.Equals("NA") == false)
-            {
-                variables.Num_Fol = Int32.Parse(txtNumFol.Text);
-                variables.TipCesionPago = ddlTipCesion.SelectedValue;
-                variables.TipPago = ddlTipPago.SelectedValue;
-                variables.FecGenerado = DateTime.Parse(txtFecha.Text);
-                CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result insertCtmov = logicaNegocio.insertCtmov(variables.Num_Fol, variables.FecGenerado, Int32.Parse(variables.TipCesionPago), variables.TipPago, "001", "BTCEPG");
-                if (insertCtmov != null)
-                {
-                    error = insertCtmov.error;
-                    mensaje = insertCtmov.mensaje;
-                    if (Convert.ToInt32(error) == 0)
+                    if (variables.Num_Fol == 0 || string.IsNullOrEmpty(variables.TipCesionPago) == true || string.IsNullOrEmpty(variables.TipPago) == true)
                     {
-                        Response.Write("<script type=\"text/javascript\">alert('Generado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
+                        txtNumFol.Text = logicaNegocio.ultFolio("001", "BTCEPG").ToString();
+                        txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
                     }
                     else
                     {
-                        Response.Write("<script type=\"text/javascript\">alert('Ocurrio un error, intente mas tarde'); window.location.href = 'Inicio.aspx';</script>");
+                        txtNumFol.Text = variables.Num_Fol.ToString();
+                        txtFecha.Text = variables.FecGenerado.ToString("dd/MM/yyyy");
+                        ddlTipCesion.SelectedValue = variables.TipCesionPago;
+                        ddlTipPago.SelectedValue = variables.TipPago;
+
+                        /* llena de la tabla con los detalles del ctdmov */
+                        gvCP.DataSource = logicaNegocio.consCtmov("001", "BTCEPG", null, variables.Num_Fol);
+                        gvCP.DataBind();
                     }
                 }
             }
             else
             {
-                Response.Write("<script type=\"text/javascript\">alert('Seleccione una opcion corresta en los combos');</script>");
-            }            
+                Response.Redirect("Login.aspx");
+            }
         }
 
         protected void chkRechaza_CheckedChanged(object sender, EventArgs e)
         {
-            Response.Write("<script type=\"text/javascript\">alert('Rechazado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
+            int num_folEnc = Convert.ToInt32(txtNumFol.Text);
+            int tipo_cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
+            string tipo_pago = ddlTipPago.Text;
+            string user = Session["user_cve"].ToString();
+            GridViewRow row = (sender as CheckBox).Parent.Parent as GridViewRow;
+            string ef_cve = row.Cells[0].Text;
+            string tipo_doc = row.Cells[1].Text;
+            int num_fol = Convert.ToInt32(row.Cells[2].Text);
+            decimal importe = Convert.ToDecimal(row.Cells[5].Text);
+            string tm = row.Cells[4].Text;
+            string nombre = row.Cells[6].Text;
+            CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result resultado = logicaNegocio.insertCtmov(num_folEnc, DateTime.Today, tipo_cesion, tipo_pago, "001", "BTCEPG", user, ef_cve, tipo_doc, num_fol, importe, tm, nombre, 2);
+
+            if (resultado.error == 0)
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Rechazado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
+            }
+            else
+            {
+                Response.Write("<script type=\"text/javascript\">alert('error: " + resultado.mensaje + "'); window.location.href = 'Inicio.aspx';</script>");
+            }
+            
         }
 
         protected void chkAutoriza_CheckedChanged(object sender, EventArgs e)
         {
-            Response.Write("<script type=\"text/javascript\">alert('Autorizado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
+            int num_folEnc = Convert.ToInt32(txtNumFol.Text);
+            int tipo_cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
+            string tipo_pago = ddlTipPago.Text;
+            string user = Session["user_cve"].ToString();
+            GridViewRow row = (sender as CheckBox).Parent.Parent as GridViewRow;
+            string ef_cve = row.Cells[0].Text;
+            string tipo_doc = row.Cells[1].Text;
+            int num_fol = Convert.ToInt32(row.Cells[2].Text);
+            decimal importe = Convert.ToDecimal(row.Cells[5].Text);
+            string tm = row.Cells[4].Text;
+            string nombre =row.Cells[6].Text;
+            CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result resultado = logicaNegocio.insertCtmov(num_folEnc, DateTime.Today, tipo_cesion, tipo_pago, "001", "BTCEPG", user, ef_cve, tipo_doc, num_fol, importe, tm, nombre, 1);
+
+            if (resultado.error==0)
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Autorizado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
+            }
+            else
+            {
+                Response.Write("<script type=\"text/javascript\">alert('error: "+resultado.mensaje+"'); window.location.href = 'Inicio.aspx';</script>");
+            }
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.RemoveAll();
+            Session.Abandon();
+            variables.Num_Fol = 0;
+            Response.Redirect("Login.aspx");
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            gvCP.DataSource = null;
+            gvCP.DataBind();
+            gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
+            gvCP.DataBind();
         }
     }
 }

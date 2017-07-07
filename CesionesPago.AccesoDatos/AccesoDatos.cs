@@ -50,9 +50,47 @@ namespace CesionesPago.AccesoDatos
             return consCtmov;
         }
 
-        public sp_WebAppInsertaCtmov_Result insertCtmov(int? num_fol, DateTime fec_mov, int? plazo_pp, string refer, string ef_cve, string tipdoc_cve)
+        public sp_WebAppInsertaCtmov_Result insertCtmov(int? num_fol, DateTime fec_mov, int? plazo_pp, string refer, string ef_cve, string tipdoc_cve, string user, string ef_cved, string tipdoc_cved, int? num_fold, decimal? dato10, string tm, string nombre, short? statusd)
         {
-            return (contexto.sp_WebAppInsertaCtmov(num_fol, fec_mov, plazo_pp, refer, ef_cve, tipdoc_cve)).FirstOrDefault();
+            return (contexto.sp_WebAppInsertaCtmov(num_fol, fec_mov, plazo_pp, refer, ef_cve, tipdoc_cve, user,ef_cved,tipdoc_cved,num_fold,dato10,tm,nombre,statusd)).FirstOrDefault();
+        }
+
+        public sp_WebAppActualizaCtdmov_Result actualizaCtdmov(string ef_cve, string tipo_doc, int num_fol, short num_reng , short PI_OPCION)
+        {
+            return (contexto.sp_WebAppActualizaCtdmov(ef_cve, tipo_doc, num_fol, num_reng, PI_OPCION).FirstOrDefault());
+        }
+        public void confirmar(string ef_cve, string tipdoc, int folio, short status, bool sw_si_no, bool sw_term, DateTime fecha, string obs, string id)
+        {
+            contexto.sp_gnewsts(ef_cve, tipdoc, folio, status, sw_si_no, sw_term, fecha, obs, id);
+        }
+        public List<string> ListaUser_cve()
+        {
+            return ((from u in contexto.xcdconapl_cl where u.sp_cve.Equals("CesionPag") select u.spd_cve).ToList());
+        }
+        public List<xcuser> ListaUsuarios(List<string> Usuarios)
+        {
+            return (from u in contexto.xcuser where Usuarios.Contains(u.user_cve) && u.ef_cve == "001" select u).ToList();
+        }
+        public string Login(string usuario, string pass)
+        {
+            string resultado = "";
+            var consultaLogin = (from u in contexto.xcuser
+                                 where u.user_cve.Equals(usuario)
+                                         && u.password.Equals(pass)
+                                 select u).FirstOrDefault();
+            if (consultaLogin == null)
+            {
+                resultado = null;
+            }
+            else
+            {
+                resultado = consultaLogin.user_cve;
+            }
+            return resultado;
+        }
+        public List<sp_WebAppConsultaPagos_Result> ConsultaPagos(string ef_cve, string tip_doc, string Tipo_Pago)
+        {
+            return (contexto.sp_WebAppConsultaPagos(ef_cve, tip_doc, 0, Tipo_Pago).ToList());
         }
     }
 }
