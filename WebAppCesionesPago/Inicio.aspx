@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3" style="display:none;">
+                            <div class="col-md-2" style="display:none;">
                                 <strong><asp:Label ID="lbl1" runat="server" Text="No. Folio:"></asp:Label></strong>
                                 <asp:TextBox ID="txtNumFol" runat="server" type="number" CssClass="form-control" min="1" ReadOnly="true" required="true"></asp:TextBox>
                             </div>
@@ -32,13 +32,15 @@
                             <div class="col-md-3">
                                 <strong><asp:Label ID="lbl4" runat="server" Text="Tipo Pago:"></asp:Label></strong>
                                 <asp:DropDownList ID="ddlTipPago" runat="server" CssClass="form-control"></asp:DropDownList>
-                            </div>                            
-                        </div>
-                        <div class="row">
+                            </div> 
                             <div class="col-md-3">
                                 <br />
                                 <asp:Button ID="btnBuscar" runat="server" Text="Generar" CssClass="btn btn-success" OnClick="btnBuscar_Click"/>
-                            </div>
+                                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" Enabled="false"/>
+                            </div>                           
+                        </div>
+                        <div class="row">
+                            
                         </div>
                         <br />
                         <br />
@@ -84,7 +86,7 @@
             <div class="col-md-10">
             </div>
             <div class="col-md-2">
-                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnLogout_Click"/>
+                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnLogout_Click" style="position:fixed; z-index:99; bottom:6%; right:6%;"/>
             </div>
         </div>
     </div>

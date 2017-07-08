@@ -120,10 +120,30 @@ namespace WebAppCesionesPago
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
+            {
+                gvCP.Visible = true;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+                gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
+                gvCP.DataBind();
+                ddlTipCesion.Enabled = ddlTipPago.Enabled = btnBuscar.Enabled = false;
+                btnCancelar.Enabled = true;
+            }
+            else
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Seleccione una opción correcta en los combos');</script>");
+            }
+            
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            gvCP.Visible = false;
             gvCP.DataSource = null;
             gvCP.DataBind();
-            gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
-            gvCP.DataBind();
+            ddlTipCesion.Enabled = ddlTipPago.Enabled = btnBuscar.Enabled = true;
+            btnCancelar.Enabled = false;
         }
     }
 }
