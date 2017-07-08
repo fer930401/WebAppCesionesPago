@@ -53,11 +53,11 @@
                     HeaderStyle-ForeColor="White" EmptyDataText="No hay resultados" CssClass="table" Font-Size="Smaller">
                     <HeaderStyle Font-Bold="True" />
                         <Columns>
-                            <asp:BoundField DataField="ef_cve" HeaderText="Entidad Financiera" Visible="false"/>
-                            <asp:BoundField DataField="tipo_doc" HeaderText="Documento" Visible="false"/>
+                            <asp:BoundField DataField="ef_cve" HeaderText="Entidad Financiera" />
+                            <asp:BoundField DataField="tipo_doc" HeaderText="Documento" />
                             <asp:BoundField DataField="num_fol" HeaderText="Folio" />
                             <asp:BoundField DataField="cc_tipo" HeaderText="Documento" />
-                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" Visible="false" />
+                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" />
                             <asp:BoundField DataField="dato10" HeaderText="Importe" />
                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
                             <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
