@@ -20,15 +20,17 @@ namespace WebAppCesionesPago
             {
                 if (!IsPostBack)
                 {
-                    /* se llena el combo de Tipo de Cesión con el clave de la opcion 206 */
-                    ddlTipCesion.DataSource = logicaNegocio.consTipCesion("194");
+                    /*SQL: se llena el combo de Tipo de Cesión con el clave de la opcion 206 */
+                    /*Develop: se llena el combo de Tipo de Cesión con el clave de la opcion 194 */
+                    ddlTipCesion.DataSource = logicaNegocio.consTipCesion("206");
                     ddlTipCesion.DataTextField = "op_nom";
                     ddlTipCesion.DataValueField = "op_val";
                     ddlTipCesion.DataBind();
                     ddlTipCesion.Items.Insert(0, new ListItem("Selecciona Tipo Cesion", "NA"));
 
-                    /* se llena el combo de Tipo Pago con el clave de la opcion 207 */
-                    ddlTipPago.DataSource = logicaNegocio.consTipCesion("195");
+                    /*SQL: se llena el combo de Tipo Pago con el clave de la opcion 207 */
+                    /*Develop: se llena el combo de Tipo Pago con el clave de la opcion 195 */
+                    ddlTipPago.DataSource = logicaNegocio.consTipCesion("207");
                     ddlTipPago.DataTextField = "op_nom";
                     ddlTipPago.DataValueField = "op_val";
                     ddlTipPago.DataBind();
@@ -156,7 +158,7 @@ namespace WebAppCesionesPago
         }
 
         protected void ddlTipPago_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {   //Cada que cambia el indice del combo se llena el gridview solo si los 2 combos tienen datos seleccionados
             if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
             {
                 gvCP.Visible = true;
@@ -178,7 +180,7 @@ namespace WebAppCesionesPago
         }
 
         protected void btnBuscarFolio_Click(object sender, EventArgs e)
-        {
+        {//busca el folio solo si los combos tienen algo seleccionado, el txt es numerico y no esta vacio
             if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
             {
                 if (txtBuscarFolio.Text!="")
@@ -219,7 +221,7 @@ namespace WebAppCesionesPago
         }
 
         protected void btnCancelaFiltro_Click(object sender, EventArgs e)
-        {
+        {//borra el filtro del folio buscado
             btnCancelaFiltro.Visible = false;
             btnBuscarFolio.Visible = true;
             txtBuscarFolio.Text = "";
