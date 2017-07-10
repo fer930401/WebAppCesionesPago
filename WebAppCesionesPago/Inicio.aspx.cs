@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,10 +12,10 @@ namespace WebAppCesionesPago
     public partial class _Default : Page
     {
         LogicaNegocios logicaNegocio = new LogicaNegocios();
-        string mensaje = "";
-        short? error = 0;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.DefaultButton = btnBuscarFolio.UniqueID;
             if (Session["user_cve"]!=null)
             {
                 if (!IsPostBack)
@@ -67,14 +68,21 @@ namespace WebAppCesionesPago
             string ef_cve = row.Cells[0].Text;
             string tipo_doc = row.Cells[1].Text;
             int num_fol = Convert.ToInt32(row.Cells[2].Text);
-            decimal importe = Convert.ToDecimal(row.Cells[5].Text);
-            string tm = row.Cells[4].Text;
+            decimal importe = Convert.ToDecimal(row.Cells[4].Text);
+            string tm = row.Cells[5].Text;
             string nombre = row.Cells[6].Text;
 
             CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result resultado = logicaNegocio.insertCtmov(num_folEnc, DateTime.Today, tipo_cesion, tipo_pago, "001", "BTCEPG", user, ef_cve, tipo_doc, num_fol, importe, tm, nombre, 2);
 
             if (resultado.error == 0)
             {
+                gvCP.Visible = false;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+                btnCancelaFiltro.Visible = false;
+                btnBuscarFolio.Visible = true;
+                txtBuscarFolio.Enabled = true;
+                txtBuscarFolio.Text = "";
                 Response.Write("<script type=\"text/javascript\">alert('Rechazado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
             }
             else
@@ -94,13 +102,20 @@ namespace WebAppCesionesPago
             string ef_cve = row.Cells[0].Text;
             string tipo_doc = row.Cells[1].Text;
             int num_fol = Convert.ToInt32(row.Cells[2].Text);
-            decimal importe = Convert.ToDecimal(row.Cells[5].Text);
-            string tm = row.Cells[4].Text;
+            decimal importe = Convert.ToDecimal(row.Cells[4].Text);
+            string tm = row.Cells[5].Text;
             string nombre =row.Cells[6].Text;
             CesionesPago.Entidades.sp_WebAppInsertaCtmov_Result resultado = logicaNegocio.insertCtmov(num_folEnc, DateTime.Today, tipo_cesion, tipo_pago, "001", "BTCEPG", user, ef_cve, tipo_doc, num_fol, importe, tm, nombre, 1);
 
             if (resultado.error==0)
             {
+                gvCP.Visible = false;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+                btnCancelaFiltro.Visible = false;
+                btnBuscarFolio.Visible = true;
+                txtBuscarFolio.Enabled = true;
+                txtBuscarFolio.Text = "";
                 Response.Write("<script type=\"text/javascript\">alert('Autorizado Correctamente'); window.location.href = 'Inicio.aspx';</script>");
             }
             else
@@ -118,7 +133,7 @@ namespace WebAppCesionesPago
             Response.Redirect("Login.aspx");
         }
 
-        protected void btnBuscar_Click(object sender, EventArgs e)
+        protected void ddlTipCesion_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
             {
@@ -127,23 +142,102 @@ namespace WebAppCesionesPago
                 gvCP.DataBind();
                 gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
                 gvCP.DataBind();
-                ddlTipCesion.Enabled = ddlTipPago.Enabled = btnBuscar.Enabled = false;
-                btnCancelar.Enabled = true;
+                btnCancelaFiltro.Visible = false;
+                btnBuscarFolio.Visible = true;
+                txtBuscarFolio.Enabled = true;
+                txtBuscarFolio.Text = "";
+            }
+            else
+            {
+                gvCP.Visible = false;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+            }
+        }
+
+        protected void ddlTipPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
+            {
+                gvCP.Visible = true;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+                gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
+                gvCP.DataBind();
+                btnCancelaFiltro.Visible = false;
+                btnBuscarFolio.Visible = true;
+                txtBuscarFolio.Enabled = true;
+                txtBuscarFolio.Text = "";
+            }
+            else
+            {
+                gvCP.Visible = false;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+            }
+        }
+
+        protected void btnBuscarFolio_Click(object sender, EventArgs e)
+        {
+            if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
+            {
+                if (txtBuscarFolio.Text!="")
+                {
+                    if (Regex.IsMatch(txtBuscarFolio.Text, "^[0-9]+$"))
+                    {
+                        List<CesionesPago.Entidades.sp_WebAppConsultaPagos_Result> pagos = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
+                        pagos = pagos.FindAll(s => s.num_fol.Equals(Convert.ToInt32(txtBuscarFolio.Text)));
+                        if (pagos.Count > 0)
+                        {
+                            gvCP.Visible = true;
+                            gvCP.DataSource = null;
+                            gvCP.DataBind();
+                            gvCP.DataSource = pagos;
+                            gvCP.DataBind();
+                            btnCancelaFiltro.Visible = true;
+                            btnBuscarFolio.Visible = false;
+                            txtBuscarFolio.Enabled = false;
+                        }
+                        else
+                        {
+                            txtBuscarFolio.Text = "";
+                            Response.Write("<script type=\"text/javascript\">alert('Busqueda de Folios sin resultados');</script>");
+                        }
+                    }
+                    else
+                    {
+                        txtBuscarFolio.Text = "";
+                        Response.Write("<script type=\"text/javascript\">alert('Formato de Folio Incorrecto');</script>");
+                    }
+                    
+                }                
             }
             else
             {
                 Response.Write("<script type=\"text/javascript\">alert('Seleccione una opción correcta en los combos');</script>");
             }
-            
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void btnCancelaFiltro_Click(object sender, EventArgs e)
         {
-            gvCP.Visible = false;
-            gvCP.DataSource = null;
-            gvCP.DataBind();
-            ddlTipCesion.Enabled = ddlTipPago.Enabled = btnBuscar.Enabled = true;
-            btnCancelar.Enabled = false;
+            btnCancelaFiltro.Visible = false;
+            btnBuscarFolio.Visible = true;
+            txtBuscarFolio.Text = "";
+            txtBuscarFolio.Enabled = true;
+            if (ddlTipCesion.SelectedValue.Equals("NA") == false && ddlTipPago.SelectedValue.Equals("NA") == false)
+            {
+                gvCP.Visible = true;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+                gvCP.DataSource = logicaNegocio.ConsultaPagos("001", "BTCEPG", ddlTipPago.SelectedValue);
+                gvCP.DataBind();
+            }
+            else
+            {
+                gvCP.Visible = false;
+                gvCP.DataSource = null;
+                gvCP.DataBind();
+            }
         }
     }
 }

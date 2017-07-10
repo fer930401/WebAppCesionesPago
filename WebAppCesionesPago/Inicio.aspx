@@ -27,20 +27,28 @@
                             </div>
                             <div class="col-md-3">
                                 <strong><asp:Label ID="lbl3" runat="server" Text="Tipo Cesión:"></asp:Label></strong>
-                                <asp:DropDownList ID="ddlTipCesion" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlTipCesion" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlTipCesion_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-3">
                                 <strong><asp:Label ID="lbl4" runat="server" Text="Tipo Pago:"></asp:Label></strong>
-                                <asp:DropDownList ID="ddlTipPago" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlTipPago" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlTipPago_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div> 
                             <div class="col-md-3">
                                 <br />
-                                <asp:Button ID="btnBuscar" runat="server" Text="Generar" CssClass="btn btn-success" OnClick="btnBuscar_Click"/>
-                                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" Enabled="false"/>
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtBuscarFolio" runat="server" CssClass="form-control" placeholder="Buscar Folio"></asp:TextBox>
+                                    <span class="input-group-btn">
+                                        <asp:LinkButton ID="btnBuscarFolio" runat="server" CssClass="btn btn-info" OnClick="btnBuscarFolio_Click">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
+                                        </asp:LinkButton>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <asp:LinkButton ID="btnCancelaFiltro" runat="server" CssClass="btn btn-danger" OnClick="btnCancelaFiltro_Click" Visible="false">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                                        </asp:LinkButton>
+                                    </span>
+                                </div>
                             </div>                           
-                        </div>
-                        <div class="row">
-                            
                         </div>
                         <br />
                         <br />
@@ -59,8 +67,8 @@
                             <asp:BoundField DataField="tipo_doc" HeaderText="Documento" />
                             <asp:BoundField DataField="num_fol" HeaderText="Folio" />
                             <asp:BoundField DataField="cc_tipo" HeaderText="Documento" />
-                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" />
                             <asp:BoundField DataField="dato10" HeaderText="Importe" />
+                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" />
                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
                             <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -86,7 +94,7 @@
             <div class="col-md-10">
             </div>
             <div class="col-md-2">
-                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnLogout_Click" style="position:fixed; z-index:99; bottom:6%; right:6%;"/>
+                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnLogout_Click"/>
             </div>
         </div>
     </div>

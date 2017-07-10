@@ -85,22 +85,31 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipPago;
         
         /// <summary>
-        /// btnBuscar control.
+        /// txtBuscarFolio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.TextBox txtBuscarFolio;
         
         /// <summary>
-        /// btnCancelar control.
+        /// btnBuscarFolio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.WebControls.LinkButton btnBuscarFolio;
+        
+        /// <summary>
+        /// btnCancelaFiltro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelaFiltro;
         
         /// <summary>
         /// gvCP control.
