@@ -17,13 +17,6 @@ namespace CesionesPago.AccesoDatos
             //inicializacion de la variable contexto
             contexto = new CesionesEntities();
         }
-
-        public List<qcomcve1_Result> consTipCesion(string tipo)
-        {
-            List<Entidades.qcomcve1_Result> consTipCesion = contexto.qcomcve1(tipo).ToList();
-            SqlConnection.ClearAllPools();
-            return consTipCesion;
-        }
         public List<string> ListaUser_cve()
         {
             return ((from u in contexto.xcdconapl_cl where u.sp_cve.Equals("CesionPag") select u.spd_cve).ToList());
@@ -49,17 +42,17 @@ namespace CesionesPago.AccesoDatos
             }
             return resultado;
         }
-        public List<WebAppPagosTipDoc_Result> ListaDocumentos(string tipoPago)
+        public List<WebAppConsultaPagos_Result> ConsultaPagos(string ef_cve, int num_fol)
         {
-            List<WebAppPagosTipDoc_Result> documentos = contexto.WebAppPagosTipDoc(tipoPago).ToList();
+            List<WebAppConsultaPagos_Result> pagos = contexto.WebAppConsultaPagos(ef_cve, num_fol).ToList();
             SqlConnection.ClearAllPools();
-            return documentos;
+            return pagos;
         }
-        public WebAppCesionesPago_Result ProcesarPago(string ef_cve, int tipo_cesion, string tipo_pago, string tipo_doc, int num_fol, DateTime fecha, short opcion, string user)
+        public WebAppCesionesPago_Result Autorizar(string ef_cve, int tipo_cesion, string tipo_doc, int num_fol, DateTime fecha, string user)
         {
-            WebAppCesionesPago_Result procesar = contexto.WebAppCesionesPago(ef_cve, tipo_cesion, tipo_pago, tipo_doc, num_fol, fecha, opcion, user).FirstOrDefault();
+            WebAppCesionesPago_Result resultado = contexto.WebAppCesionesPago(ef_cve, tipo_cesion, tipo_doc, num_fol, fecha, user).FirstOrDefault();
             SqlConnection.ClearAllPools();
-            return procesar;
+            return resultado;
         }
     }
 }

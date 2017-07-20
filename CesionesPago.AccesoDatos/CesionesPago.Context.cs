@@ -30,25 +30,20 @@ namespace CesionesPago.Entidades
         public virtual DbSet<xcdconapl_cl> xcdconapl_cl { get; set; }
         public virtual DbSet<xcuser> xcuser { get; set; }
     
-        public virtual ObjectResult<qcomcve1_Result> qcomcve1(string tipo)
+        public virtual ObjectResult<WebAppConsultaPagos_Result> WebAppConsultaPagos(string ef_cve, Nullable<int> num_fol)
         {
-            var tipoParameter = tipo != null ?
-                new ObjectParameter("tipo", tipo) :
-                new ObjectParameter("tipo", typeof(string));
+            var ef_cveParameter = ef_cve != null ?
+                new ObjectParameter("ef_cve", ef_cve) :
+                new ObjectParameter("ef_cve", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<qcomcve1_Result>("qcomcve1", tipoParameter);
+            var num_folParameter = num_fol.HasValue ?
+                new ObjectParameter("num_fol", num_fol) :
+                new ObjectParameter("num_fol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppConsultaPagos_Result>("WebAppConsultaPagos", ef_cveParameter, num_folParameter);
         }
     
-        public virtual ObjectResult<WebAppPagosTipDoc_Result> WebAppPagosTipDoc(string tipoPago)
-        {
-            var tipoPagoParameter = tipoPago != null ?
-                new ObjectParameter("tipoPago", tipoPago) :
-                new ObjectParameter("tipoPago", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppPagosTipDoc_Result>("WebAppPagosTipDoc", tipoPagoParameter);
-        }
-    
-        public virtual ObjectResult<WebAppCesionesPago_Result> WebAppCesionesPago(string ef_cve, Nullable<int> tipoCesion, string tipoPago, string tipDoc, Nullable<int> num_fol, Nullable<System.DateTime> fec_mov, Nullable<short> opcion, string user_cve)
+        public virtual ObjectResult<WebAppCesionesPago_Result> WebAppCesionesPago(string ef_cve, Nullable<int> tipoCesion, string tipDoc, Nullable<int> num_fol, Nullable<System.DateTime> fec_mov, string user_cve)
         {
             var ef_cveParameter = ef_cve != null ?
                 new ObjectParameter("ef_cve", ef_cve) :
@@ -57,10 +52,6 @@ namespace CesionesPago.Entidades
             var tipoCesionParameter = tipoCesion.HasValue ?
                 new ObjectParameter("tipoCesion", tipoCesion) :
                 new ObjectParameter("tipoCesion", typeof(int));
-    
-            var tipoPagoParameter = tipoPago != null ?
-                new ObjectParameter("tipoPago", tipoPago) :
-                new ObjectParameter("tipoPago", typeof(string));
     
             var tipDocParameter = tipDoc != null ?
                 new ObjectParameter("tipDoc", tipDoc) :
@@ -74,15 +65,11 @@ namespace CesionesPago.Entidades
                 new ObjectParameter("fec_mov", fec_mov) :
                 new ObjectParameter("fec_mov", typeof(System.DateTime));
     
-            var opcionParameter = opcion.HasValue ?
-                new ObjectParameter("opcion", opcion) :
-                new ObjectParameter("opcion", typeof(short));
-    
             var user_cveParameter = user_cve != null ?
                 new ObjectParameter("user_cve", user_cve) :
                 new ObjectParameter("user_cve", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppCesionesPago_Result>("WebAppCesionesPago", ef_cveParameter, tipoCesionParameter, tipoPagoParameter, tipDocParameter, num_folParameter, fec_movParameter, opcionParameter, user_cveParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppCesionesPago_Result>("WebAppCesionesPago", ef_cveParameter, tipoCesionParameter, tipDocParameter, num_folParameter, fec_movParameter, user_cveParameter);
         }
     }
 }

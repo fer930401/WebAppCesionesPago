@@ -50,21 +50,17 @@
           <Property Name="status" Type="smallint" />
           <Property Name="sw_password" Type="smallint" />
         </EntityType>
-        <Function Name="qcomcve1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="tipo" Type="nchar" Mode="In" />
-        </Function>
         <Function Name="WebAppCesionesPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ef_cve" Type="nchar" Mode="In" />
           <Parameter Name="tipoCesion" Type="int" Mode="In" />
-          <Parameter Name="tipoPago" Type="nchar" Mode="In" />
           <Parameter Name="tipDoc" Type="nvarchar" Mode="In" />
           <Parameter Name="num_fol" Type="int" Mode="In" />
           <Parameter Name="fec_mov" Type="datetime" Mode="In" />
-          <Parameter Name="opcion" Type="smallint" Mode="In" />
           <Parameter Name="user_cve" Type="nchar" Mode="In" />
         </Function>
-        <Function Name="WebAppPagosTipDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="tipoPago" Type="nchar" Mode="In" />
+        <Function Name="WebAppConsultaPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ef_cve" Type="nchar" Mode="In" />
+          <Parameter Name="num_fol" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="skytexModelStoreContainer">
           <EntitySet Name="xcdconapl_cl" EntityType="Self.xcdconapl_cl" Schema="dbo" store:Type="Tables" />
@@ -75,29 +71,21 @@
     <edmx:ConceptualModels>
       <Schema Namespace="skytexModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CesionesEntities" annotation:LazyLoadingEnabled="true" >
-          <FunctionImport Name="qcomcve1" ReturnType="Collection(skytexModel.qcomcve1_Result)">
-          <Parameter Name="tipo" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="xcdconapl_cl" EntityType="skytexModel.xcdconapl_cl" />
           <EntitySet Name="xcuser" EntityType="skytexModel.xcuser" />
-          <FunctionImport Name="WebAppPagosTipDoc" ReturnType="Collection(skytexModel.WebAppPagosTipDoc_Result)">
-          <Parameter Name="tipoPago" Mode="In" Type="String" />
+          <FunctionImport Name="WebAppConsultaPagos" ReturnType="Collection(skytexModel.WebAppConsultaPagos_Result)">
+            <Parameter Name="ef_cve" Mode="In" Type="String" />
+            <Parameter Name="num_fol" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="WebAppCesionesPago" ReturnType="Collection(skytexModel.WebAppCesionesPago_Result)">
             <Parameter Name="ef_cve" Mode="In" Type="String" />
             <Parameter Name="tipoCesion" Mode="In" Type="Int32" />
-            <Parameter Name="tipoPago" Mode="In" Type="String" />
             <Parameter Name="tipDoc" Mode="In" Type="String" />
             <Parameter Name="num_fol" Mode="In" Type="Int32" />
             <Parameter Name="fec_mov" Mode="In" Type="DateTime" />
-            <Parameter Name="opcion" Mode="In" Type="Int16" />
             <Parameter Name="user_cve" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="qcomcve1_Result">
-          <Property Type="String" Name="op_nom" Nullable="false" MaxLength="40" />
-          <Property Type="String" Name="op_val" Nullable="true" MaxLength="3" />
-        </ComplexType>
         <EntityType Name="xcdconapl_cl">
           <Key>
             <PropertyRef Name="tipdoc_cve" />
@@ -143,9 +131,9 @@
           <Property Name="status" Type="Int16" />
           <Property Name="sw_password" Type="Int16" />
         </EntityType>
-        <ComplexType Name="WebAppPagosTipDoc_Result">
-          <Property Type="String" Name="tipdoc_cve" Nullable="true" MaxLength="32" />
-          <Property Type="String" Name="nombre" Nullable="false" MaxLength="40" />
+        <ComplexType Name="WebAppConsultaPagos_Result">
+          <Property Type="String" Name="tipo_doc" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="34" />
         </ComplexType>
         <ComplexType Name="WebAppCesionesPago_Result">
           <Property Type="Int16" Name="error" Nullable="true" />
@@ -157,14 +145,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="skytexModelStoreContainer" CdmEntityContainer="CesionesEntities" >
-          <FunctionImportMapping FunctionImportName="qcomcve1" FunctionName="skytexModel.Store.qcomcve1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="skytexModel.qcomcve1_Result">
-                <ScalarProperty Name="op_nom" ColumnName="op_nom" />
-                <ScalarProperty Name="op_val" ColumnName="op_val" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="xcdconapl_cl">
             <EntityTypeMapping TypeName="skytexModel.xcdconapl_cl">
               <MappingFragment StoreEntitySet="xcdconapl_cl">
@@ -208,10 +188,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="WebAppPagosTipDoc" FunctionName="skytexModel.Store.WebAppPagosTipDoc">
+          <FunctionImportMapping FunctionImportName="WebAppConsultaPagos" FunctionName="skytexModel.Store.WebAppConsultaPagos">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="skytexModel.WebAppPagosTipDoc_Result">
-                <ScalarProperty Name="tipdoc_cve" ColumnName="tipdoc_cve" />
+              <ComplexTypeMapping TypeName="skytexModel.WebAppConsultaPagos_Result">
+                <ScalarProperty Name="tipo_doc" ColumnName="tipo_doc" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </ComplexTypeMapping>
             </ResultMapping>

@@ -59,13 +59,10 @@
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="qcomcve1_Result.cs">
-      <DependentUpon>CesionesPago.tt</DependentUpon>
-    </Compile>
     <Compile Include="WebAppCesionesPago_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebAppPagosTipDoc_Result.cs">
+    <Compile Include="WebAppConsultaPagos_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
     <Compile Include="xcdconapl_cl.cs">

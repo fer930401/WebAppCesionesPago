@@ -18,17 +18,9 @@ namespace WebAppCesionesPago
             {
                 if (!IsPostBack)
                 {
-                        ddlTipCesion.DataSource = logicaNegocio.consTipCesion("206");
-                        ddlTipCesion.DataTextField = "op_nom";
-                        ddlTipCesion.DataValueField = "op_val";
-                        ddlTipCesion.DataBind();
-                        ddlTipCesion.Items.Insert(0, new ListItem("Selecciona Tipo de Cesion", "NA"));
-
-                        ddlTipoPago.DataSource = logicaNegocio.consTipCesion("207");
-                        ddlTipoPago.DataTextField = "op_nom";
-                        ddlTipoPago.DataValueField = "op_val";
-                        ddlTipoPago.DataBind();
-                        ddlTipoPago.Items.Insert(0, new ListItem("Selecciona Tipo de Pago", "NA"));
+                    ddlTipoDocumento.DataSource = null;
+                    ddlTipoDocumento.DataBind();
+                    ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
                 }
             }
             else
@@ -37,81 +29,63 @@ namespace WebAppCesionesPago
             }
         }
 
-        protected void ddlTipoPago_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddlTipoDocumento.DataSource = logicaNegocio.ListaDocumentos(ddlTipoPago.SelectedValue);
-            ddlTipoDocumento.DataTextField = "nombre";
-            ddlTipoDocumento.DataValueField = "tipdoc_cve";
-            ddlTipoDocumento.DataBind();
-            ddlTipoDocumento.Items.Insert(0, new ListItem("Selecciona Tipo de Documento", "NA"));
-
-        }
-
         protected void btnAutorizar_Click(object sender, EventArgs e)
         {
-            if (ddlTipCesion.SelectedValue!="NA" && ddlTipoDocumento.SelectedValue!="NA" && ddlTipoPago.SelectedValue!="NA" && txtBuscarFolio.Text!="")
+            try
             {
-                int cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
-                string pago = (ddlTipoPago.SelectedValue).Replace(" ", "");
-                string tip_doc = (ddlTipoDocumento.SelectedValue).Replace(" ","");
-                int num_fol = Convert.ToInt32(txtBuscarFolio.Text);
-                string user = Session["user_cve"].ToString();
-                try
+                int folio = 0;
+                bool convertir = int.TryParse(txtBuscarFolio.Text, out folio);
+                if (convertir)
                 {
-                    WebAppCesionesPago_Result procesar = logicaNegocio.ProcesarPago("001", cesion, pago, tip_doc, num_fol, DateTime.Now, 1, user);
-                    if (procesar.error == 0)
+                    WebAppCesionesPago_Result resultado = logicaNegocio.Autorizar("001",1,ddlTipoDocumento.SelectedValue,folio,DateTime.Now,Session["user_cve"].ToString());
+                    if (resultado.error==0)
                     {
                         Response.Write("<script type=\"text/javascript\">alert('Pago Autorizado Correctamente');</script>");
+                        txtBuscarFolio.Text = "";
+                        ddlTipoDocumento.Items.Clear();
+                        ddlTipoDocumento.DataSource = null;
+                        ddlTipoDocumento.DataBind();
+                        ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
                     }
                     else
                     {
-                        Response.Write("<script type=\"text/javascript\">alert('Error: " + procesar.mensaje + "');</script>");
+                        Response.Write("<script type=\"text/javascript\">alert('Error: "+resultado.mensaje+"');</script>");
                     }
                 }
-                catch (Exception msg)
+                else
                 {
-                    Response.Write("<script type=\"text/javascript\">alert('" + msg + "');</script>");
+                    Response.Write("<script type=\"text/javascript\">alert('No se pudo convertir el folio');</script>");
                 }
-                ddlTipCesion.SelectedIndex = ddlTipoPago.SelectedIndex = ddlTipoPago.SelectedIndex = 0;
-                txtBuscarFolio.Text = "";
+                
             }
-            else
+            catch (Exception message)
             {
-                Response.Write("<script type=\"text/javascript\">alert('Completar todos los campos');</script>");
+                Response.Write("<script type=\"text/javascript\">alert('" + message + "');</script>");
             }
         }
 
-        protected void btnRechazar_Click(object sender, EventArgs e)
+        protected void txtBuscarFolio_TextChanged(object sender, EventArgs e)
         {
-            if (ddlTipCesion.SelectedValue != "NA" && ddlTipoDocumento.SelectedValue != "NA" && ddlTipoPago.SelectedValue != "NA" && txtBuscarFolio.Text != "")
+            int folio =0;
+            bool result = int.TryParse(txtBuscarFolio.Text, out folio);
+            if (result)
             {
-                int cesion = Convert.ToInt32(ddlTipCesion.SelectedValue);
-                string pago = (ddlTipoPago.SelectedValue).Replace(" ", "");
-                string tip_doc = (ddlTipoDocumento.SelectedValue).Replace(" ", "");
-                int num_fol = Convert.ToInt32(txtBuscarFolio.Text);
-                string user = Session["user_cve"].ToString();
-                try
+                List<WebAppConsultaPagos_Result> consulta = logicaNegocio.ConsultaPagos("001", folio);
+                if (consulta.Count!=0)
                 {
-                    WebAppCesionesPago_Result procesar = logicaNegocio.ProcesarPago("001", cesion, pago, tip_doc, num_fol, DateTime.Now, 2, user);
-                    if (procesar.error == 0)
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert('Pago Rechazado Correctamente');</script>");
-                    }
-                    else
-                    {
-                        Response.Write("<script type=\"text/javascript\">alert('Error: " + procesar.mensaje + "');</script>");
-                    }
+                    ddlTipoDocumento.Items.Clear();
+                    ddlTipoDocumento.DataSource = consulta;
+                    ddlTipoDocumento.DataTextField = "nombre";
+                    ddlTipoDocumento.DataValueField = "tipo_doc";
+                    ddlTipoDocumento.DataBind();
                 }
-                catch (Exception msg)
-                {
-                    Response.Write("<script type=\"text/javascript\">alert('" + msg + "');</script>");
-                }
-                ddlTipCesion.SelectedIndex = ddlTipoPago.SelectedIndex = ddlTipoPago.SelectedIndex = 0;
-                txtBuscarFolio.Text = "";
             }
             else
             {
-                Response.Write("<script type=\"text/javascript\">alert('Completar todos los campos');</script>");
+                ddlTipoDocumento.Items.Clear();
+                ddlTipoDocumento.DataSource = null;
+                ddlTipoDocumento.DataBind();
+                ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
             }
         }
     }

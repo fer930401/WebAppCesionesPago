@@ -11,9 +11,9 @@ namespace CesionesPago.Entidades
 {
     using System;
     
-    public partial class WebAppPagosTipDoc_Result
+    public partial class WebAppConsultaPagos_Result
     {
-        public string tipdoc_cve { get; set; }
+        public string tipo_doc { get; set; }
         public string nombre { get; set; }
     }
 }

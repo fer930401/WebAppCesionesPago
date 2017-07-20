@@ -16,10 +16,6 @@ namespace CesionesPago.LogicaNegocios
             datos = new AccesoDatos.AccesoDatos();
         }
 
-        public List<Entidades.qcomcve1_Result> consTipCesion(string tipo)
-        {
-            return datos.consTipCesion(tipo);
-        }
         public List<Entidades.xcuser> ListaUsuarios()
         {
             return datos.ListaUsuarios(datos.ListaUser_cve());
@@ -28,13 +24,13 @@ namespace CesionesPago.LogicaNegocios
         {
             return datos.Login(usuario, pass);
         }
-        public List<WebAppPagosTipDoc_Result> ListaDocumentos(string TipoPago)
+        public List<WebAppConsultaPagos_Result> ConsultaPagos(string ef_cve, int num_fol)
         {
-            return datos.ListaDocumentos(TipoPago);
+            return datos.ConsultaPagos(ef_cve, num_fol);
         }
-        public WebAppCesionesPago_Result ProcesarPago(string ef_cve, int tipo_cesion, string tipo_pago, string tipo_doc, int num_fol, DateTime fecha, short opcion, string user)
+        public WebAppCesionesPago_Result Autorizar(string ef_cve, int tipo_cesion, string tipo_doc, int num_fol, DateTime fecha, string user)
         {
-            return datos.ProcesarPago(ef_cve, tipo_cesion, tipo_pago, tipo_doc, num_fol, fecha, opcion, user);
+            return datos.Autorizar(ef_cve, tipo_cesion, tipo_doc, num_fol, fecha, user);
         }
     }
 }
