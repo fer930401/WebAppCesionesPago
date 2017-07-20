@@ -10,12 +10,12 @@ namespace CesionesPago.AccesoDatos
 {
     public class AccesoDatos
     {
-        skytexEntities contexto;
+        CesionesEntities contexto;
 
         public AccesoDatos()
         {
             //inicializacion de la variable contexto
-            contexto = new skytexEntities();
+            contexto = new CesionesEntities();
         }
 
         public List<qcomcve1_Result> consTipCesion(string tipo)
@@ -23,45 +23,6 @@ namespace CesionesPago.AccesoDatos
             List<Entidades.qcomcve1_Result> consTipCesion = contexto.qcomcve1(tipo).ToList();
             SqlConnection.ClearAllPools();
             return consTipCesion;
-        }
-
-        public int ultFolio(string ef_cve, string tipdoc_cve)
-        {
-            int num_fol;
-            var consultaFolio = (from xu in contexto.xufolios
-                                 where xu.ef_cve.Equals(ef_cve)
-                                         && xu.tipdoc_cve.Equals(tipdoc_cve)
-                                 select xu).SingleOrDefault();
-            if (consultaFolio == null)
-            {
-                num_fol = 0;
-            }
-            else
-            {
-                num_fol = consultaFolio.ult_fol;
-            }
-            return num_fol + 1;
-        }
-
-        public List<sp_lisdetctmov7_Result> consCtmov(string ef_cve, string tipdoc_cve, string tipdoc_cvep, int? num_fol)
-        {
-            List<Entidades.sp_lisdetctmov7_Result> consCtmov = contexto.sp_lisdetctmov7(ef_cve,tipdoc_cve,tipdoc_cvep,num_fol).ToList();
-            SqlConnection.ClearAllPools();
-            return consCtmov;
-        }
-
-        public sp_WebAppInsertaCtmov_Result insertCtmov(int? num_fol, DateTime fec_mov, int? plazo_pp, string refer, string ef_cve, string tipdoc_cve, string user, string ef_cved, string tipdoc_cved, int? num_fold, decimal? dato10, string tm, string nombre, short? statusd)
-        {
-            return (contexto.sp_WebAppInsertaCtmov(num_fol, fec_mov, plazo_pp, refer, ef_cve, tipdoc_cve, user,ef_cved,tipdoc_cved,num_fold,dato10,tm,nombre,statusd)).FirstOrDefault();
-        }
-
-        public sp_WebAppActualizaCtdmov_Result actualizaCtdmov(string ef_cve, string tipo_doc, int num_fol, short num_reng , short PI_OPCION)
-        {
-            return (contexto.sp_WebAppActualizaCtdmov(ef_cve, tipo_doc, num_fol, num_reng, PI_OPCION).FirstOrDefault());
-        }
-        public void confirmar(string ef_cve, string tipdoc, int folio, short status, bool sw_si_no, bool sw_term, DateTime fecha, string obs, string id)
-        {
-            contexto.sp_gnewsts(ef_cve, tipdoc, folio, status, sw_si_no, sw_term, fecha, obs, id);
         }
         public List<string> ListaUser_cve()
         {
@@ -88,9 +49,17 @@ namespace CesionesPago.AccesoDatos
             }
             return resultado;
         }
-        public List<sp_WebAppConsultaPagos_Result> ConsultaPagos(string ef_cve, string tip_doc, string Tipo_Pago)
+        public List<WebAppPagosTipDoc_Result> ListaDocumentos(string tipoPago)
         {
-            return (contexto.sp_WebAppConsultaPagos(ef_cve, tip_doc, 0, Tipo_Pago).ToList());
+            List<WebAppPagosTipDoc_Result> documentos = contexto.WebAppPagosTipDoc(tipoPago).ToList();
+            SqlConnection.ClearAllPools();
+            return documentos;
+        }
+        public WebAppCesionesPago_Result ProcesarPago(string ef_cve, int tipo_cesion, string tipo_pago, string tipo_doc, int num_fol, DateTime fecha, short opcion, string user)
+        {
+            WebAppCesionesPago_Result procesar = contexto.WebAppCesionesPago(ef_cve, tipo_cesion, tipo_pago, tipo_doc, num_fol, fecha, opcion, user).FirstOrDefault();
+            SqlConnection.ClearAllPools();
+            return procesar;
         }
     }
 }

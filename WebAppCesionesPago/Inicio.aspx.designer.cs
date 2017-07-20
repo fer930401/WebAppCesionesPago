@@ -10,43 +10,7 @@
 namespace WebAppCesionesPago {
     
     
-    public partial class _Default {
-        
-        /// <summary>
-        /// lbl1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl1;
-        
-        /// <summary>
-        /// txtNumFol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumFol;
-        
-        /// <summary>
-        /// lbl2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl2;
-        
-        /// <summary>
-        /// txtFecha control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFecha;
+    public partial class Inicio {
         
         /// <summary>
         /// lbl3 control.
@@ -67,22 +31,49 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.DropDownList ddlTipCesion;
         
         /// <summary>
-        /// lbl4 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl4;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// ddlTipPago control.
+        /// ddlTipoPago control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipPago;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoPago;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// ddlTipoDocumento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoDocumento;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// txtBuscarFolio control.
@@ -94,39 +85,21 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.WebControls.TextBox txtBuscarFolio;
         
         /// <summary>
-        /// btnBuscarFolio control.
+        /// btnAutorizar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnBuscarFolio;
+        protected global::System.Web.UI.WebControls.Button btnAutorizar;
         
         /// <summary>
-        /// btnCancelaFiltro control.
+        /// btnRechazar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCancelaFiltro;
-        
-        /// <summary>
-        /// gvCP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCP;
-        
-        /// <summary>
-        /// btnLogout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
+        protected global::System.Web.UI.WebControls.Button btnRechazar;
     }
 }

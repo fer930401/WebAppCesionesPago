@@ -62,25 +62,16 @@
     <Compile Include="qcomcve1_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_lisdetctmov7_Result.cs">
+    <Compile Include="WebAppCesionesPago_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_WebAppActualizaCtdmov_Result.cs">
-      <DependentUpon>CesionesPago.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_WebAppConsultaPagos_Result.cs">
-      <DependentUpon>CesionesPago.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_WebAppInsertaCtmov_Result.cs">
+    <Compile Include="WebAppPagosTipDoc_Result.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
     <Compile Include="xcdconapl_cl.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
     <Compile Include="xcuser.cs">
-      <DependentUpon>CesionesPago.tt</DependentUpon>
-    </Compile>
-    <Compile Include="xufolios.cs">
       <DependentUpon>CesionesPago.tt</DependentUpon>
     </Compile>
   </ItemGroup>

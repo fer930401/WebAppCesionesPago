@@ -11,7 +11,7 @@ namespace CesionesPago.Entidades
 {
     using System;
     
-    public partial class sp_WebAppInsertaCtmov_Result
+    public partial class WebAppCesionesPago_Result
     {
         public Nullable<short> error { get; set; }
         public string mensaje { get; set; }

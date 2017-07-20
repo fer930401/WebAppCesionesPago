@@ -110,6 +110,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Inicio.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Media\Imagenes\logoSkytexB.png" />
     <Content Include="Media\Imagenes\logo_skytex.png" />
@@ -150,7 +151,6 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Inicio.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Cesiones.Master" />

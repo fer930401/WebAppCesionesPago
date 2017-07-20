@@ -31,6 +31,24 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// btnCerrarSesion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCerrarSesion2;
+        
+        /// <summary>
+        /// btnCerrarSesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCerrarSesion;
+        
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

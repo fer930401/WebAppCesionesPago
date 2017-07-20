@@ -11,9 +11,9 @@ namespace CesionesPago.Entidades
 {
     using System;
     
-    public partial class sp_WebAppActualizaCtdmov_Result
+    public partial class WebAppPagosTipDoc_Result
     {
-        public Nullable<short> error { get; set; }
-        public string mensaje { get; set; }
+        public string tipdoc_cve { get; set; }
+        public string nombre { get; set; }
     }
 }

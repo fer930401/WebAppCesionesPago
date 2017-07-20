@@ -23,27 +23,23 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <form id="form1" runat="server">
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesión" CssClass="navbar-toggle collapsed btn btn-danger" OnClick="btnCerrarSesion_Click" />
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="Media/Imagenes/logoSkytexB.png" width="17" height="15" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="Inicio.aspx"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio <span class="sr-only">(current)</span></a></li>
-                </ul>
+                    <ul class="nav navbar-nav navbar-right text-center">
+                        <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnCerrarSesion_Click" />
+                    </ul>
             </div>
         </div>
     </nav>
-    <form id="form1" runat="server">
+    
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

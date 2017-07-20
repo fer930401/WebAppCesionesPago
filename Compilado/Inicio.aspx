@@ -1,101 +1,95 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Cesiones.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="WebAppCesionesPago._Default" %>
-
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Cesiones.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="WebAppCesionesPago.Inicio" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <div class="well">
-            <div class="form-inline">
-                <div class="form-group">
-                    <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
-                </div>
-                <div class="form-group">
-                    <h2>Cesiones de Pago</h2>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
+                            </div>
+                            <div class="form-group">
+                                <h2>Cesiones de Pago</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-2" style="display:none;">
-                                <strong><asp:Label ID="lbl1" runat="server" Text="No. Folio:"></asp:Label></strong>
-                                <asp:TextBox ID="txtNumFol" runat="server" type="number" CssClass="form-control" min="1" ReadOnly="true" required="true"></asp:TextBox>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <strong><asp:Label ID="lbl3" runat="server" Text="Tipo de Cesión:"></asp:Label></strong>
                             </div>
-                            <div class="col-md-3">
-                                <strong><asp:Label ID="lbl2" runat="server" Text="Fecha:"></asp:Label></strong>
-                                <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" ReadOnly="true" ></asp:TextBox>
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlTipCesion" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
-                                <strong><asp:Label ID="lbl3" runat="server" Text="Tipo Cesión:"></asp:Label></strong>
-                                <asp:DropDownList ID="ddlTipCesion" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlTipCesion_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                            </div>
-                            <div class="col-md-3">
-                                <strong><asp:Label ID="lbl4" runat="server" Text="Tipo Pago:"></asp:Label></strong>
-                                <asp:DropDownList ID="ddlTipPago" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlTipPago_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                            </div> 
-                            <div class="col-md-3">
-                                <br />
-                                <div class="input-group">
-                                    <asp:TextBox ID="txtBuscarFolio" runat="server" CssClass="form-control" placeholder="Buscar Folio"></asp:TextBox>
-                                    <span class="input-group-btn">
-                                        <asp:LinkButton ID="btnBuscarFolio" runat="server" CssClass="btn btn-info" OnClick="btnBuscarFolio_Click">
-                                            <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
-                                        </asp:LinkButton>
-                                    </span>
-                                    <span class="input-group-btn">
-                                        <asp:LinkButton ID="btnCancelaFiltro" runat="server" CssClass="btn btn-danger" OnClick="btnCancelaFiltro_Click" Visible="false">
-                                            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
-                                        </asp:LinkButton>
-                                    </span>
-                                </div>
-                            </div>                           
                         </div>
                         <br />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <strong><asp:Label ID="Label1" runat="server" Text="Tipo de Pago:"></asp:Label></strong>
+                            </div>
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlTipoPago" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlTipoPago_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                        </div>
                         <br />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <strong><asp:Label ID="Label2" runat="server" Text="Tipo de Documento:"></asp:Label></strong>
+                            </div>
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlTipoDocumento" runat="server" CssClass="form-control"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <strong><asp:Label ID="Label3" runat="server" Text="Número de Folio:"></asp:Label></strong>
+                            </div>
+                            <div class="col-md-6">
+                                <asp:TextBox ID="txtBuscarFolio" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 text-center">
+                                <asp:Button ID="btnAutorizar" runat="server" Text="Autorizar" CssClass="btn btn-success btn-lg" OnClick="btnAutorizar_Click" OnClientClick="return validar('Autorizar')"/>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <asp:Button ID="btnRechazar" runat="server" Text="Rechazar"  CssClass="btn btn-danger btn-lg" OnClick="btnRechazar_Click" OnClientClick="return validar('Rechazar')"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                <asp:GridView ID="gvCP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" 
-                    HeaderStyle-ForeColor="White" EmptyDataText="No hay resultados" CssClass="table" Font-Size="Smaller">
-                    <HeaderStyle Font-Bold="True" />
-                        <Columns>
-                            <asp:BoundField DataField="ef_cve" HeaderText="Entidad Financiera" />
-                            <asp:BoundField DataField="tipo_doc" HeaderText="Documento" />
-                            <asp:BoundField DataField="num_fol" HeaderText="Folio" />
-                            <asp:BoundField DataField="cc_tipo" HeaderText="Documento" />
-                            <asp:BoundField DataField="dato10" HeaderText="Importe" />
-                            <asp:BoundField DataField="tm" HeaderText="Tipo de Moneda" />
-                            <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                            <asp:TemplateField HeaderText="Autorizar:" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkAutoriza" runat="server" 
-                                        onclick="if (!confirm('Esta seguro de que quiere autorizar el pago??')) return false;" OnCheckedChanged="chkAutoriza_CheckedChanged" AutoPostBack="true"
-                                        Text="Autorizar"/>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Rechazar:" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkRechaza" runat="server" 
-                                        onclick="if (!confirm('Esta seguro de que quiere rechazar el pago??')) return false" OnCheckedChanged="chkRechaza_CheckedChanged" AutoPostBack="true"
-                                        Text="Rechazar"/>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                </asp:GridView>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-10">
-            </div>
-            <div class="col-md-2">
-                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnLogout_Click"/>
-            </div>
-        </div>
     </div>
+    <script type="text/javascript">
+        function validar(boton) {
+            if ($('#<%=ddlTipCesion.ClientID%>').val().trim() === 'NA') 
+            {
+                alert('Completar todos los campos');
+                return false;
+            } else if ($('#<%=ddlTipoPago.ClientID%>').val().trim() === 'NA') {
+                alert('Completar todos los campos');
+                return false;
+            } else if ($('#<%=ddlTipoDocumento.ClientID%>').val().trim() === 'NA') {
+                alert('Completar todos los campos');
+                return false;
+            } else if ($('#<%=txtBuscarFolio.ClientID%>').val() === '') {
+                alert('Completar todos los campos');
+                return false;
+            } else {
+                return confirm('¿Desea '+boton+' este pago?')
+            }
+        }
+    </script>
 </asp:Content>
