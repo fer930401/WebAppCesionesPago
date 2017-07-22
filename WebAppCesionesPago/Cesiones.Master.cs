@@ -11,7 +11,7 @@ namespace WebAppCesionesPago
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user_cve"]!=null)
+            if (Session["user_cve"] != null)
             {
                 btnCerrarSesion.Visible = btnCerrarSesion2.Visible = true;
             }

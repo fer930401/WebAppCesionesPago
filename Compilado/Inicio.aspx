@@ -64,5 +64,17 @@
             }
             return confirm('¿Desea Autorizar este pago?');
         }
+
+        $(window).on('onunload', function () {
+            <% 
+                if (IsPostBack)
+                {
+                    Session.Clear();
+                    Session.RemoveAll();
+                    Session.Abandon();
+                }
+            %>
+            return '';
+        });
     </script>
 </asp:Content>

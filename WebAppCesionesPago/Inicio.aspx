@@ -64,5 +64,6 @@
             }
             return confirm('¿Desea Autorizar este pago?');
         }
+
     </script>
 </asp:Content>

@@ -14,14 +14,22 @@ namespace WebAppCesionesPago
         LogicaNegocios logicaNegocio = new LogicaNegocios();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user_cve"] != null)
+            if (Session["validacion"]!=null)
             {
                 if (!IsPostBack)
                 {
-                    ddlTipoDocumento.DataSource = null;
-                    ddlTipoDocumento.DataBind();
-                    ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
+                    Session.Clear();
+                    Session.RemoveAll();
+                    Session.Abandon();
+                    Response.Redirect("Login.aspx");
                 }
+            }
+            else if (Session["user_cve"]!=null)
+            {
+                Session["validacion"] = 1;
+                ddlTipoDocumento.DataSource = null;
+                ddlTipoDocumento.DataBind();
+                ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
             }
             else
             {
