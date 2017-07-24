@@ -14,20 +14,19 @@ namespace WebAppCesionesPago
         LogicaNegocios logicanegocio = new LogicaNegocios();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user_cve"] == null)
+            if (Session["validacion"] != null)
             {
-                if (!IsPostBack)
-                {
-                    ddlUsuarios.DataSource = logicanegocio.ListaUsuarios();
-                    ddlUsuarios.DataTextField = "nombre";
-                    ddlUsuarios.DataValueField = "user_cve";
-                    ddlUsuarios.DataBind();
-                    ddlUsuarios.Items.Insert(0, new ListItem("< Selecciona un usuario >", "NA"));
-                }
+                Session.Clear();
+                Session.RemoveAll();
+                Session.Abandon();
             }
-            else
+            if (!IsPostBack)
             {
-                Response.Redirect("Inicio.aspx");
+                ddlUsuarios.DataSource = logicanegocio.ListaUsuarios();
+                ddlUsuarios.DataTextField = "nombre";
+                ddlUsuarios.DataValueField = "user_cve";
+                ddlUsuarios.DataBind();
+                ddlUsuarios.Items.Insert(0, new ListItem("< Selecciona un usuario >", "NA"));
             }
         }
 
