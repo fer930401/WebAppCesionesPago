@@ -54,5 +54,11 @@ namespace CesionesPago.AccesoDatos
             SqlConnection.ClearAllPools();
             return resultado;
         }
+        public WebAppCesionesConfirming_Result Confirming(short sw, string ef_cve)
+        {
+            WebAppCesionesConfirming_Result resultado = contexto.WebAppCesionesConfirming(sw, ef_cve).FirstOrDefault();
+            SqlConnection.ClearAllPools();
+            return resultado;
+        }
     }
 }

@@ -28,12 +28,14 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesión" CssClass="navbar-toggle collapsed btn btn-danger" OnClick="btnCerrarSesion_Click" />
+                <asp:Button ID="btnConfirming2" runat="server" Text="Confirming" CssClass="navbar-toggle collapsed btn btn-info" OnClick="btnConfirming_Click"/>
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="Media/Imagenes/logoSkytexB.png" width="17" height="15" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right text-center">
+                        <asp:Button ID="btnConfirming" runat="server" Text="Confirming" CssClass="btn btn-info" OnClick="btnConfirming_Click"/>
                         <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnCerrarSesion_Click" />
                     </ul>
             </div>

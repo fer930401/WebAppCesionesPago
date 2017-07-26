@@ -50,6 +50,10 @@
           <Property Name="status" Type="smallint" />
           <Property Name="sw_password" Type="smallint" />
         </EntityType>
+        <Function Name="WebAppCesionesConfirming" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sw" Type="smallint" Mode="In" />
+          <Parameter Name="ef_cve" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="WebAppCesionesPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ef_cve" Type="nchar" Mode="In" />
           <Parameter Name="tipoCesion" Type="int" Mode="In" />
@@ -84,6 +88,10 @@
             <Parameter Name="num_fol" Mode="In" Type="Int32" />
             <Parameter Name="fec_mov" Mode="In" Type="DateTime" />
             <Parameter Name="user_cve" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="WebAppCesionesConfirming" ReturnType="Collection(skytexModel.WebAppCesionesConfirming_Result)">
+            <Parameter Name="sw" Mode="In" Type="Int16" />
+            <Parameter Name="ef_cve" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="xcdconapl_cl">
@@ -138,6 +146,10 @@
         <ComplexType Name="WebAppCesionesPago_Result">
           <Property Type="Int16" Name="error" Nullable="true" />
           <Property Type="String" Name="mensaje" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="WebAppCesionesConfirming_Result">
+          <Property Type="Int16" Name="error" Nullable="true" />
+          <Property Type="String" Name="mensaje" Nullable="true" MaxLength="40" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -199,6 +211,14 @@
           <FunctionImportMapping FunctionImportName="WebAppCesionesPago" FunctionName="skytexModel.Store.WebAppCesionesPago">
             <ResultMapping>
               <ComplexTypeMapping TypeName="skytexModel.WebAppCesionesPago_Result">
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="WebAppCesionesConfirming" FunctionName="skytexModel.Store.WebAppCesionesConfirming">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="skytexModel.WebAppCesionesConfirming_Result">
                 <ScalarProperty Name="error" ColumnName="error" />
                 <ScalarProperty Name="mensaje" ColumnName="mensaje" />
               </ComplexTypeMapping>

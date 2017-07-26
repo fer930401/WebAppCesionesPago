@@ -32,5 +32,9 @@ namespace CesionesPago.LogicaNegocios
         {
             return datos.Autorizar(ef_cve, tipo_cesion, tipo_doc, num_fol, fecha, user);
         }
+        public WebAppCesionesConfirming_Result Confirming(short sw, string ef_cve)
+        {
+            return datos.Confirming(sw, ef_cve);
+        }
     }
 }

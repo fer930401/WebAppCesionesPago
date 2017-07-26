@@ -71,5 +71,18 @@ namespace CesionesPago.Entidades
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppCesionesPago_Result>("WebAppCesionesPago", ef_cveParameter, tipoCesionParameter, tipDocParameter, num_folParameter, fec_movParameter, user_cveParameter);
         }
+    
+        public virtual ObjectResult<WebAppCesionesConfirming_Result> WebAppCesionesConfirming(Nullable<short> sw, string ef_cve)
+        {
+            var swParameter = sw.HasValue ?
+                new ObjectParameter("sw", sw) :
+                new ObjectParameter("sw", typeof(short));
+    
+            var ef_cveParameter = ef_cve != null ?
+                new ObjectParameter("ef_cve", ef_cve) :
+                new ObjectParameter("ef_cve", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppCesionesConfirming_Result>("WebAppCesionesConfirming", swParameter, ef_cveParameter);
+        }
     }
 }
