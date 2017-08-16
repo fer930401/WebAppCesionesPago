@@ -50,6 +50,57 @@
           <Property Name="status" Type="smallint" />
           <Property Name="sw_password" Type="smallint" />
         </EntityType>
+        <EntityType Name="xuconfig">
+          <Key>
+            <PropertyRef Name="ef_cve" />
+          </Key>
+          <Property Name="ef_cve" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="sw_multusr" Type="bit" Nullable="false" />
+          <Property Name="server_rpt" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="sol_ver" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="sw_concom" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="sw_convta" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="sw_alm" Type="bit" Nullable="false" />
+          <Property Name="sw_ef" Type="bit" Nullable="false" />
+          <Property Name="sw_ivainc" Type="bit" Nullable="false" />
+          <Property Name="sw_ivacinc" Type="bit" Nullable="false" />
+          <Property Name="sw_comis" Type="bit" Nullable="false" />
+          <Property Name="sw_ieps" Type="bit" Nullable="false" />
+          <Property Name="sw_costra" Type="bit" Nullable="false" />
+          <Property Name="sw_cosxart" Type="bit" Nullable="false" />
+          <Property Name="num_decuns" Type="smallint" Nullable="false" />
+          <Property Name="num_decimp" Type="smallint" Nullable="false" />
+          <Property Name="sw_faclote" Type="bit" Nullable="false" />
+          <Property Name="sw_cancped" Type="bit" Nullable="false" />
+          <Property Name="sw_2damon" Type="bit" Nullable="false" />
+          <Property Name="sw_tmdef" Type="bit" Nullable="false" />
+          <Property Name="sw_digver" Type="bit" Nullable="false" />
+          <Property Name="mes_inieje" Type="smallint" Nullable="false" />
+          <Property Name="sw_inst" Type="bit" Nullable="false" />
+          <Property Name="fec_actual" Type="datetime" Nullable="false" />
+          <Property Name="id_ultact" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="anio_act" Type="smallint" Nullable="false" />
+          <Property Name="mes_act" Type="smallint" Nullable="false" />
+          <Property Name="drive_bkup" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="drive_pdv" Type="nvarchar" MaxLength="120" />
+          <Property Name="num_sesabr" Type="smallint" Nullable="false" />
+          <Property Name="dias_gracia" Type="smallint" Nullable="false" />
+          <Property Name="pct_retenc" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="num_decpre" Type="smallint" />
+          <Property Name="saldo_max" Type="float" />
+          <Property Name="otro1" Type="float" />
+          <Property Name="otro2" Type="float" />
+          <Property Name="otro3" Type="float" />
+          <Property Name="otro4" Type="float" />
+          <Property Name="otro5" Type="float" />
+          <Property Name="eanprov" Type="nvarchar" MaxLength="13" />
+          <Property Name="eanfol" Type="nchar" MaxLength="6" />
+          <Property Name="tm" Type="nchar" MaxLength="3" />
+          <Property Name="server_cat" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Function Name="qcomef1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_cve" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="WebAppCesionesConfirming" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sw" Type="smallint" Mode="In" />
           <Parameter Name="ef_cve" Type="nchar" Mode="In" />
@@ -69,6 +120,7 @@
         <EntityContainer Name="skytexModelStoreContainer">
           <EntitySet Name="xcdconapl_cl" EntityType="Self.xcdconapl_cl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xcuser" EntityType="Self.xcuser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="xuconfig" EntityType="Self.xuconfig" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -92,6 +144,10 @@
           <FunctionImport Name="WebAppCesionesConfirming" ReturnType="Collection(skytexModel.WebAppCesionesConfirming_Result)">
             <Parameter Name="sw" Mode="In" Type="Int16" />
             <Parameter Name="ef_cve" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="xuconfig" EntityType="skytexModel.xuconfig" />
+          <FunctionImport Name="qcomef1" ReturnType="Collection(skytexModel.qcomef1_Result)">
+            <Parameter Name="user_cve" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="xcdconapl_cl">
@@ -150,6 +206,61 @@
         <ComplexType Name="WebAppCesionesConfirming_Result">
           <Property Type="Int16" Name="error" Nullable="true" />
           <Property Type="String" Name="mensaje" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <EntityType Name="xuconfig">
+          <Key>
+            <PropertyRef Name="ef_cve" />
+          </Key>
+          <Property Name="ef_cve" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="sw_multusr" Type="Boolean" Nullable="false" />
+          <Property Name="server_rpt" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="sol_ver" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="sw_concom" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="sw_convta" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="sw_alm" Type="Boolean" Nullable="false" />
+          <Property Name="sw_ef" Type="Boolean" Nullable="false" />
+          <Property Name="sw_ivainc" Type="Boolean" Nullable="false" />
+          <Property Name="sw_ivacinc" Type="Boolean" Nullable="false" />
+          <Property Name="sw_comis" Type="Boolean" Nullable="false" />
+          <Property Name="sw_ieps" Type="Boolean" Nullable="false" />
+          <Property Name="sw_costra" Type="Boolean" Nullable="false" />
+          <Property Name="sw_cosxart" Type="Boolean" Nullable="false" />
+          <Property Name="num_decuns" Type="Int16" Nullable="false" />
+          <Property Name="num_decimp" Type="Int16" Nullable="false" />
+          <Property Name="sw_faclote" Type="Boolean" Nullable="false" />
+          <Property Name="sw_cancped" Type="Boolean" Nullable="false" />
+          <Property Name="sw_2damon" Type="Boolean" Nullable="false" />
+          <Property Name="sw_tmdef" Type="Boolean" Nullable="false" />
+          <Property Name="sw_digver" Type="Boolean" Nullable="false" />
+          <Property Name="mes_inieje" Type="Int16" Nullable="false" />
+          <Property Name="sw_inst" Type="Boolean" Nullable="false" />
+          <Property Name="fec_actual" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_ultact" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="anio_act" Type="Int16" Nullable="false" />
+          <Property Name="mes_act" Type="Int16" Nullable="false" />
+          <Property Name="drive_bkup" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="drive_pdv" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="num_sesabr" Type="Int16" Nullable="false" />
+          <Property Name="dias_gracia" Type="Int16" Nullable="false" />
+          <Property Name="pct_retenc" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
+          <Property Name="num_decpre" Type="Int16" />
+          <Property Name="saldo_max" Type="Double" />
+          <Property Name="otro1" Type="Double" />
+          <Property Name="otro2" Type="Double" />
+          <Property Name="otro3" Type="Double" />
+          <Property Name="otro4" Type="Double" />
+          <Property Name="otro5" Type="Double" />
+          <Property Name="eanprov" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="eanfol" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="tm" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="server_cat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="qcomef1_Result">
+          <Property Type="String" Name="nom1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ef_cve" Nullable="false" MaxLength="3" />
+          <Property Type="Boolean" Name="sw_ef" Nullable="false" />
+          <Property Type="Boolean" Name="sw_multusr" Nullable="false" />
+          <Property Type="String" Name="nom2" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -221,6 +332,66 @@
               <ComplexTypeMapping TypeName="skytexModel.WebAppCesionesConfirming_Result">
                 <ScalarProperty Name="error" ColumnName="error" />
                 <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="xuconfig">
+            <EntityTypeMapping TypeName="skytexModel.xuconfig">
+              <MappingFragment StoreEntitySet="xuconfig">
+                <ScalarProperty Name="server_cat" ColumnName="server_cat" />
+                <ScalarProperty Name="tm" ColumnName="tm" />
+                <ScalarProperty Name="eanfol" ColumnName="eanfol" />
+                <ScalarProperty Name="eanprov" ColumnName="eanprov" />
+                <ScalarProperty Name="otro5" ColumnName="otro5" />
+                <ScalarProperty Name="otro4" ColumnName="otro4" />
+                <ScalarProperty Name="otro3" ColumnName="otro3" />
+                <ScalarProperty Name="otro2" ColumnName="otro2" />
+                <ScalarProperty Name="otro1" ColumnName="otro1" />
+                <ScalarProperty Name="saldo_max" ColumnName="saldo_max" />
+                <ScalarProperty Name="num_decpre" ColumnName="num_decpre" />
+                <ScalarProperty Name="pct_retenc" ColumnName="pct_retenc" />
+                <ScalarProperty Name="dias_gracia" ColumnName="dias_gracia" />
+                <ScalarProperty Name="num_sesabr" ColumnName="num_sesabr" />
+                <ScalarProperty Name="drive_pdv" ColumnName="drive_pdv" />
+                <ScalarProperty Name="drive_bkup" ColumnName="drive_bkup" />
+                <ScalarProperty Name="mes_act" ColumnName="mes_act" />
+                <ScalarProperty Name="anio_act" ColumnName="anio_act" />
+                <ScalarProperty Name="id_ultact" ColumnName="id_ultact" />
+                <ScalarProperty Name="fec_actual" ColumnName="fec_actual" />
+                <ScalarProperty Name="sw_inst" ColumnName="sw_inst" />
+                <ScalarProperty Name="mes_inieje" ColumnName="mes_inieje" />
+                <ScalarProperty Name="sw_digver" ColumnName="sw_digver" />
+                <ScalarProperty Name="sw_tmdef" ColumnName="sw_tmdef" />
+                <ScalarProperty Name="sw_2damon" ColumnName="sw_2damon" />
+                <ScalarProperty Name="sw_cancped" ColumnName="sw_cancped" />
+                <ScalarProperty Name="sw_faclote" ColumnName="sw_faclote" />
+                <ScalarProperty Name="num_decimp" ColumnName="num_decimp" />
+                <ScalarProperty Name="num_decuns" ColumnName="num_decuns" />
+                <ScalarProperty Name="sw_cosxart" ColumnName="sw_cosxart" />
+                <ScalarProperty Name="sw_costra" ColumnName="sw_costra" />
+                <ScalarProperty Name="sw_ieps" ColumnName="sw_ieps" />
+                <ScalarProperty Name="sw_comis" ColumnName="sw_comis" />
+                <ScalarProperty Name="sw_ivacinc" ColumnName="sw_ivacinc" />
+                <ScalarProperty Name="sw_ivainc" ColumnName="sw_ivainc" />
+                <ScalarProperty Name="sw_ef" ColumnName="sw_ef" />
+                <ScalarProperty Name="sw_alm" ColumnName="sw_alm" />
+                <ScalarProperty Name="sw_convta" ColumnName="sw_convta" />
+                <ScalarProperty Name="sw_concom" ColumnName="sw_concom" />
+                <ScalarProperty Name="sol_ver" ColumnName="sol_ver" />
+                <ScalarProperty Name="server_rpt" ColumnName="server_rpt" />
+                <ScalarProperty Name="sw_multusr" ColumnName="sw_multusr" />
+                <ScalarProperty Name="ef_cve" ColumnName="ef_cve" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="qcomef1" FunctionName="skytexModel.Store.qcomef1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="skytexModel.qcomef1_Result">
+                <ScalarProperty Name="nom1" ColumnName="nom1" />
+                <ScalarProperty Name="ef_cve" ColumnName="ef_cve" />
+                <ScalarProperty Name="sw_ef" ColumnName="sw_ef" />
+                <ScalarProperty Name="sw_multusr" ColumnName="sw_multusr" />
+                <ScalarProperty Name="nom2" ColumnName="nom2" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

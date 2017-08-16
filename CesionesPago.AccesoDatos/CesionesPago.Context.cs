@@ -29,6 +29,7 @@ namespace CesionesPago.Entidades
     
         public virtual DbSet<xcdconapl_cl> xcdconapl_cl { get; set; }
         public virtual DbSet<xcuser> xcuser { get; set; }
+        public virtual DbSet<xuconfig> xuconfig { get; set; }
     
         public virtual ObjectResult<WebAppConsultaPagos_Result> WebAppConsultaPagos(string ef_cve, Nullable<int> num_fol)
         {
@@ -83,6 +84,15 @@ namespace CesionesPago.Entidades
                 new ObjectParameter("ef_cve", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppCesionesConfirming_Result>("WebAppCesionesConfirming", swParameter, ef_cveParameter);
+        }
+    
+        public virtual ObjectResult<qcomef1_Result> qcomef1(string user_cve)
+        {
+            var user_cveParameter = user_cve != null ?
+                new ObjectParameter("user_cve", user_cve) :
+                new ObjectParameter("user_cve", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<qcomef1_Result>("qcomef1", user_cveParameter);
         }
     }
 }

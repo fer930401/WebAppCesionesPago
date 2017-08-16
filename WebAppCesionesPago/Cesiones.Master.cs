@@ -16,13 +16,30 @@ namespace WebAppCesionesPago
         {
             if (Session["user_cve"] != null)
             {
-                btnCerrarSesion.Visible = btnCerrarSesion2.Visible = true;
-                btnConfirming.Visible = btnConfirming2.Visible = true;
+                CerrarSesion.Visible = cb.Visible = ListaEf.Visible = true;
+                if (!IsPostBack)
+                {
+                    ListaEf.DataSource = logica.EntidadesFinancieras(Session["user_cve"].ToString());
+                    ListaEf.DataValueField = "ef_cve";
+                    ListaEf.DataTextField = "nom1";
+                    ListaEf.DataBind();
+                    Session["ef"] = ListaEf.SelectedValue;
+                    xuconfig consulta = logica.ConsultaConfirming(Session["ef"].ToString());
+                    if (consulta.drive_bkup.Equals("1"))
+                    {
+                        cbConfirming.Checked = true;
+                        cb1.Checked = true;
+                    }
+                    else
+                    {
+                        cbConfirming.Checked = false;
+                        cb1.Checked = false;
+                    }
+                }
             }
             else
             {
-                btnCerrarSesion.Visible = btnCerrarSesion2.Visible = false;
-                btnConfirming.Visible = btnConfirming2.Visible = false;
+                CerrarSesion.Visible = cb.Visible = ListaEf.Visible = false;
             }
         }
 
@@ -33,11 +50,50 @@ namespace WebAppCesionesPago
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
-
-        protected void btnConfirming_Click(object sender, EventArgs e)
+        protected void cbConfirming_CheckedChanged(object sender, EventArgs e)
         {
-            WebAppCesionesConfirming_Result resultado = logica.Confirming(1, "001");
-            Response.Write("<script type=\"text/javascript\">alert('" + resultado.mensaje + "');</script>");
+            if (cbConfirming.Checked)
+            {
+                WebAppCesionesConfirming_Result resultado = logica.Confirming(1, Session["ef"].ToString());
+                if (resultado.error==0)
+                {
+                    Response.Write("<script type=\"text/javascript\">alert('Activado');</script>");
+                }
+                else
+                {
+                    Response.Write("<script type=\"text/javascript\">alert('Error: " + resultado.mensaje + "');</script>");
+                }
+            }
+            else
+            {
+                WebAppCesionesConfirming_Result resultado = logica.Confirming(0, Session["ef"].ToString());
+                if (resultado.error == 0)
+                {
+                    Response.Write("<script type=\"text/javascript\">alert('Desactivado');</script>");
+                }
+                else
+                {
+                    Response.Write("<script type=\"text/javascript\">alert('Error: " + resultado.mensaje + "');</script>");
+                }
+            }
+            
+        }
+
+        protected void ListaEf_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["ef"] = ListaEf.SelectedValue;
+            xuconfig consulta = logica.ConsultaConfirming(Session["ef"].ToString());
+            if (consulta.drive_bkup.Equals("1"))
+            {
+                cbConfirming.Checked = true;
+                cb1.Checked = true;
+            }
+            else
+            {
+                cbConfirming.Checked = false;
+                cb1.Checked = false;
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "limpiar();", true);
         }
     }
 }

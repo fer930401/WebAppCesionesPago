@@ -60,5 +60,17 @@ namespace CesionesPago.AccesoDatos
             SqlConnection.ClearAllPools();
             return resultado;
         }
+        public xuconfig ConsultaConfirming(string ef_cve)
+        {
+            xuconfig consulta = (from u in contexto.xuconfig where u.ef_cve == ef_cve select u).FirstOrDefault();
+            SqlConnection.ClearAllPools();
+            return consulta;
+        }
+        public List<qcomef1_Result> EntidadesFinancieras(string user)
+        {
+            List<qcomef1_Result> ef = contexto.qcomef1(user).ToList();
+            SqlConnection.ClearAllPools();
+            return ef;
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace WebAppCesionesPago
                 bool convertir = int.TryParse(txtBuscarFolio.Text, out folio);
                 if (convertir)
                 {
-                    WebAppCesionesPago_Result resultado = logicaNegocio.Autorizar("001",1,ddlTipoDocumento.SelectedValue,folio,DateTime.Now,Session["user_cve"].ToString());
+                    WebAppCesionesPago_Result resultado = logicaNegocio.Autorizar(Session["ef"].ToString(),1,ddlTipoDocumento.SelectedValue,folio,DateTime.Now,Session["user_cve"].ToString());
                     if (resultado.error==0)
                     {
                         Response.Write("<script type=\"text/javascript\">alert('Pago Autorizado Correctamente');</script>");
@@ -78,7 +78,7 @@ namespace WebAppCesionesPago
             bool result = int.TryParse(txtBuscarFolio.Text, out folio);
             if (result)
             {
-                List<WebAppConsultaPagos_Result> consulta = logicaNegocio.ConsultaPagos("001", folio);
+                List<WebAppConsultaPagos_Result> consulta = logicaNegocio.ConsultaPagos(Session["ef"].ToString(), folio);
                 if (consulta.Count!=0)
                 {
                     ddlTipoDocumento.Items.Clear();
@@ -86,6 +86,13 @@ namespace WebAppCesionesPago
                     ddlTipoDocumento.DataTextField = "nombre";
                     ddlTipoDocumento.DataValueField = "tipo_doc";
                     ddlTipoDocumento.DataBind();
+                }
+                else
+                {
+                    ddlTipoDocumento.Items.Clear();
+                    ddlTipoDocumento.DataSource = null;
+                    ddlTipoDocumento.DataBind();
+                    ddlTipoDocumento.Items.Insert(0, new ListItem("No hay documentos", "NA"));
                 }
             }
             else

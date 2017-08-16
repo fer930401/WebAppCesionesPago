@@ -64,6 +64,9 @@
             }
             return confirm('¿Desea Autorizar este pago?');
         }
-
+        function limpiar() {
+            $('#<%=txtBuscarFolio.ClientID%>').val('');
+            __doPostBack();
+        }
     </script>
 </asp:Content>

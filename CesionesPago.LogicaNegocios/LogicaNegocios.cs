@@ -36,5 +36,13 @@ namespace CesionesPago.LogicaNegocios
         {
             return datos.Confirming(sw, ef_cve);
         }
+        public xuconfig ConsultaConfirming(string ef_cve)
+        {
+            return datos.ConsultaConfirming(ef_cve);
+        }
+        public List<qcomef1_Result> EntidadesFinancieras(string user)
+        {
+            return (datos.EntidadesFinancieras(user));
+        }
     }
 }

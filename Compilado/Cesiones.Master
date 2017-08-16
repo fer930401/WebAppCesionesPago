@@ -15,10 +15,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <!-- Referencia a estilos en la carpeta Content -->
     <link type="text/css" rel="stylesheet" href="<%=ResolveUrl("~/Content/bootstrap.css")%>" />
+    <link type="text/css" rel="stylesheet" href="<%=ResolveUrl("~/Content/bootstrap-toggle.css")%>" />
 
     <!-- Referencia de archivos JavaScript en la carpeta Scripts -->
     <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/jquery-1.10.2.js") %>"></script>
     <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/bootstrap-toggle.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -27,14 +29,34 @@
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesión" CssClass="navbar-toggle collapsed btn btn-danger" OnClick="btnCerrarSesion_Click" />
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="glyphicon glyphicon-list"></span>
+                </button>
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="Media/Imagenes/logoSkytexB.png" width="17" height="15" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="navbar-form navbar-left">
+                        <asp:DropDownList ID="ListaEf" runat="server" CssClass="form-control" Width="100%" OnSelectedIndexChanged="ListaEf_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right text-center">
-                        <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" CssClass="btn btn-danger" OnClick="btnCerrarSesion_Click" />
+                        <div class="form-inline">
+                            <div class="form-group" id="cb" runat="server">
+                                <div class="checkbox">
+                                    <asp:Label ID="Label1" runat="server" Text="Proceso Confirming: " style="color:white;"></asp:Label>
+                                    <label>
+                                        <input type="checkbox" data-toggle="toggle" runat="server" id="cb1">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:LinkButton ID="CerrarSesion" runat="server" CssClass="btn btn-default" OnClick="btnCerrarSesion_Click"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Cerrar sesión</asp:LinkButton>
+                                &nbsp;
+                            </div>
+                        </div>
+                        <asp:CheckBox ID="cbConfirming" runat="server" ClientIDMode="Static" OnCheckedChanged="cbConfirming_CheckedChanged" style="display:none;"/>
                     </ul>
             </div>
         </div>
@@ -63,5 +85,19 @@
     </div>
 </body>
 </html>
+<script>
+    $(function () {
+        $('#cb1').change(function () {
+            var sts = $(this).prop('checked')
+            if (sts == true) {
+                $('#cbConfirming').attr('checked', true)
+                window.setTimeout("__doPostBack()", 300);
+            } else {
+                $('#cbConfirming').attr('checked', false)
+                window.setTimeout("__doPostBack()", 300);
+            }
+        })
+    })
+</script>
 
 

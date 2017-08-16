@@ -31,40 +31,58 @@ namespace WebAppCesionesPago {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// btnCerrarSesion2 control.
+        /// ListaEf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrarSesion2;
+        protected global::System.Web.UI.WebControls.DropDownList ListaEf;
         
         /// <summary>
-        /// btnConfirming2 control.
+        /// cb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirming2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cb;
         
         /// <summary>
-        /// btnConfirming control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirming;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnCerrarSesion control.
+        /// cb1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrarSesion;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cb1;
+        
+        /// <summary>
+        /// CerrarSesion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CerrarSesion;
+        
+        /// <summary>
+        /// cbConfirming control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbConfirming;
         
         /// <summary>
         /// MainContent control.

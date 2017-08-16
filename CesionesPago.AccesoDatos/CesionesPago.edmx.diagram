@@ -7,6 +7,7 @@
       <Diagram DiagramId="418ad95e36ae47c3972edca510bc3fa6" Name="Diagram1" >
         <EntityTypeShape EntityType="skytexModel.xcdconapl_cl" Width="1.5" PointX="3.75" PointY="0.75" />
         <EntityTypeShape EntityType="skytexModel.xcuser" Width="1.5" PointX="1.625" PointY="1" />
+        <EntityTypeShape EntityType="skytexModel.xuconfig" Width="1.5" PointX="6.25" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
